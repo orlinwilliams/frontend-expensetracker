@@ -16,6 +16,7 @@ import { HeaderComponent } from './header/header.component';
     SharedRoutingModule,
     NgbModule,
     FontAwesomeModule
-  ]
+  ],
+  exports:[HeaderComponent, SidebarComponent]
 })
 export class SharedModule { }
