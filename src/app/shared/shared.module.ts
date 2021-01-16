@@ -8,6 +8,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 //Components
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { HeaderComponent } from './header/header.component';
+import { SidebarModule } from 'ng-sidebar';
 
 @NgModule({
   declarations: [HeaderComponent, SidebarComponent],
@@ -15,7 +16,8 @@ import { HeaderComponent } from './header/header.component';
     CommonModule,
     SharedRoutingModule,
     NgbModule,
-    FontAwesomeModule
+    FontAwesomeModule,
+    SidebarModule.forRoot(),
   ],
   exports:[HeaderComponent, SidebarComponent]
 })
