@@ -7,6 +7,7 @@ const routes: Routes = [
     loadChildren: () =>
       import('./shared/shared.module').then((m) => m.SharedModule),
   },
+  { path: 'authentication', loadChildren: () => import('./authentication/authentication.module').then(m => m.AuthenticationModule) },
 ];
 
 @NgModule({
