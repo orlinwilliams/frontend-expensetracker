@@ -8,3 +8,7 @@
 .btn{
   border-radius: 10px;
 }
+.a-router-link{
+  cursor: pointer;
+  text-decoration: none; 
+}

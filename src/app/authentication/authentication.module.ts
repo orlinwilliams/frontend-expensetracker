@@ -5,9 +5,10 @@ import { AuthenticationRoutingModule } from './authentication-routing.module';
 import { AuthenticationComponent } from './authentication.component';
 import { LoginComponent } from './login/login.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { RegisterComponent } from './register/register.component';
 
 @NgModule({
-  declarations: [AuthenticationComponent, LoginComponent],
+  declarations: [AuthenticationComponent, LoginComponent, RegisterComponent],
   imports: [
     CommonModule,
     AuthenticationRoutingModule,
