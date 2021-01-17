@@ -1,5 +1,5 @@
-import { ArrayType } from '@angular/compiler';
-import { Component, OnInit } from '@angular/core';
+import { Component, HostListener, OnInit,  } from '@angular/core';
+import { ToggleSidebarService } from 'src/app/services/shared/toggle-sidebar.service';
 
 @Component({
   selector: 'app-sidebar',
@@ -8,10 +8,29 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SidebarComponent implements OnInit {
   //Settings sidebar
-  opened: boolean = true;
-  modeNum: number = 0;
+  //opened: boolean = true;
+  modeNum: number = 1;
   modes: Array<any> = ['over', 'push', 'slide'];
-  constructor() {}
+  constructor(public toggleSidebarService: ToggleSidebarService ) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.detectWindowWidth();  
+  }
+
+  detectWindowWidth():void{
+    if (window.innerWidth <= 900) {
+      this.modeNum = 0;
+    }
+  }
+  
+  //------Event to change mode of sidebar-----
+  @HostListener('window:resize', ['$event'])
+  onResize(event:any) {
+    //console.log('Width: ' + event.target.innerWidth);
+    if (event.target.innerWidth < 900) {
+      this.modeNum = 0;
+    } else {
+      this.modeNum = 1;
+    }
+  }
 }

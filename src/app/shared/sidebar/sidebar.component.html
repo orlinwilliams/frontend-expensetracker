@@ -1,5 +1,5 @@
 <ng-sidebar-container>
-  <ng-sidebar [(opened)]="opened" [mode]="modes[modeNum]">
+  <ng-sidebar [(opened)]="toggleSidebarService.openedSidebar" [mode]="modes[modeNum]">
     <p>Sidebar contents</p>
   </ng-sidebar>
 
