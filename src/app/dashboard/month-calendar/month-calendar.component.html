@@ -1,0 +1,14 @@
+<div class="row justify-content-center">
+  <div class="col-8 col-sm-5 col-md-4 col-lg-4 col-xl-3">
+    <form>
+      <div class="form-group">
+        <input
+          type="month"
+          class="form-control calendar-month"
+          [value]="currentYearMonth"
+          (change)="changeDate($event)"
+        />
+      </div>
+    </form>
+  </div>
+</div>
