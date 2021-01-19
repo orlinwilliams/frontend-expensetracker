@@ -10,6 +10,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { SummaryCardsComponent } from './summary-cards/summary-cards.component';
 import { MonthCalendarComponent } from './month-calendar/month-calendar.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import {MatTableModule} from '@angular/material/table';
+import {MatSortModule} from '@angular/material/sort';
 @NgModule({
   declarations: [
     DashboardComponent,
@@ -23,7 +25,9 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
     SharedModule,
     FormsModule,
     NgbModule,
-    FontAwesomeModule
+    FontAwesomeModule,
+    MatTableModule,
+    MatSortModule
   ],
 })
 export class DashboardModule {}
