@@ -1,16 +1,29 @@
-.card{
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+.card {
   border-radius: 10px;
-  box-shadow: 2px 2px 8px rgba(110, 110,110, 0.4);
+  box-shadow: 2px 2px 8px rgba(110, 110, 110, 0.4);
 }
-.card:hover{
-  box-shadow: 2px 2px 10px rgba(110, 110,110, 0.6);
+.card:hover {
+  box-shadow: 2px 2px 10px rgba(110, 110, 110, 0.6);
 }
-.btn{
+.btn {
   border-radius: 10px;
 }
-.a-router-link{
+.a-router-link {
   cursor: pointer;
-  text-decoration: none; 
+  text-decoration: none;
 }
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+.action-icon {
+  font-size: 17px;
+  cursor: pointer;
+  margin-right: 8px;
+  font-weight: normal;
+}
