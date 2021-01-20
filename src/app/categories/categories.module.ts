@@ -9,12 +9,14 @@ import { ExpenseCategoryComponent } from './expense-category/expense-category.co
 import { IncomeCategoryComponent } from './income-category/income-category.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { HomeCategoryComponent } from './home-category/home-category.component';
 
 @NgModule({
   declarations: [
     CategoriesComponent,
     ExpenseCategoryComponent,
     IncomeCategoryComponent,
+    HomeCategoryComponent,
   ],
   imports: [
     CommonModule,
