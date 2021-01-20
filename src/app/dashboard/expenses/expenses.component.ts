@@ -1,29 +1,28 @@
 import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
-import {MatSort} from '@angular/material/sort';
-import {MatTableDataSource} from '@angular/material/table';
+import { MatSort } from '@angular/material/sort';
+import { MatTableDataSource } from '@angular/material/table';
+//import { faEdit, faTrashAlt, } from '@fortawesome/free-solid-svg-icons';
+import { faTrashAlt, faEdit } from '@fortawesome/free-regular-svg-icons';
 @Component({
   selector: 'app-expenses',
   templateUrl: './expenses.component.html',
-  styleUrls: ['./expenses.component.css']
+  styleUrls: ['./expenses.component.css'],
 })
-export class ExpensesComponent implements OnInit,AfterViewInit {
-
-  displayedColumns: string[] = ['date', 'category', 'value'];
+export class ExpensesComponent implements OnInit, AfterViewInit {
+  faEdit = faEdit;
+  faTrashAlt = faTrashAlt;
+  displayedColumns: string[] = ['date', 'category', 'value', 'actions'];
   DATA = [
     { date: 'Cloro', category: 1.0079, value: 'H' },
     { date: 'Oxigen', category: 3.025, value: 'M' },
     { date: 'Hydrogen', category: 2.025, value: 'M' },
-    
   ];
   dataSource = new MatTableDataSource(this.DATA);
   @ViewChild(MatSort) sort: MatSort = new MatSort();
-  
-  constructor() {
-  }
-  ngOnInit(): void {    
-  }
+
+  constructor() {}
+  ngOnInit(): void {}
   ngAfterViewInit() {
     this.dataSource.sort = this.sort;
   }
-
 }

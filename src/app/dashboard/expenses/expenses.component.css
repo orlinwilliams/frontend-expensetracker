@@ -10,3 +10,9 @@ table {
 th.mat-sort-header-sorted {
   color: black;
 }
+.action-icon{
+  font-size: 17px;
+  cursor: pointer;
+  margin-right: 8px;
+  font-weight: normal;
+}
