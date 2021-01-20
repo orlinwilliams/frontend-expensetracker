@@ -31,5 +31,6 @@ import { IncomeComponent } from './income/income.component';
     FontAwesomeModule,
     AngularMaterialModule    
   ],
+  exports:[MonthCalendarComponent,]
 })
 export class DashboardModule {}

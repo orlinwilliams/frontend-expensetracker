@@ -17,3 +17,6 @@ ng-sidebar-container {
 .option-sidebar:hover {
   background: #d1cfcf;
 }
+.active-link{
+  background: #d1cfcf;
+}
