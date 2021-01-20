@@ -9,9 +9,10 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { HeaderComponent } from './header/header.component';
 import { SidebarModule } from 'ng-sidebar';
+import { NotFoundComponent } from './not-found/not-found.component';
 
 @NgModule({
-  declarations: [HeaderComponent, SidebarComponent],
+  declarations: [HeaderComponent, SidebarComponent, NotFoundComponent],
   imports: [
     CommonModule,
     SharedRoutingModule,
