@@ -2,8 +2,18 @@ ng-sidebar-container {
   height: 90vh;
 }
 ::ng-deep aside {
-  background-color: #8d8f87;
-  box-shadow: 0 0 2.5em rgba(85, 85, 85, 0.4);
+  background: white;
+  box-shadow: 0 0 1.5em rgba(85, 85, 85, 0.2);
   width: 200px;
-  
+}
+.menu-sidebar {
+  margin-top: 30px;
+}
+.option-sidebar {
+  padding-top: 7px;
+  padding-bottom: 7px;
+  cursor: pointer;
+}
+.option-sidebar:hover {
+  background: #d1cfcf;
 }
