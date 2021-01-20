@@ -9,7 +9,7 @@
           <fa-icon [icon]="faChevronRight" ></fa-icon>
         </div>
       </div>
-      <div class="row option-sidebar" (click)="openOptionsCategories()">
+      <div class="row option-sidebar" [routerLink]="['/categories']">
         <div class="col-9">
           <span>Categories</span>
         </div>
@@ -17,25 +17,7 @@
           <fa-icon [icon]="faChevronRight" ></fa-icon>
         </div>
       </div>
-      <div id="options-categories" *ngIf="showOptionsCategories"  >
-        <div class="row option-sidebar">
-          <div class="col-9">
-            <span class="ml-3">Income</span>          
-          </div>
-          <div class="col-3">
-            <fa-icon [icon]="faChevronRight" ></fa-icon>
-          </div>
-        </div>
-        <div class="row option-sidebar">
-          <div class="col-9">
-            <span class="ml-3">Expense</span>          
-          </div>
-          <div class="col-3">
-            <fa-icon [icon]="faChevronRight" ></fa-icon>
-          </div>
-        </div>
-      </div>      
-      <div class="row option-sidebar">
+      <div class="row option-sidebar" [routerLink]="['/reports']">
         <div class="col-9">
           <span>Reports</span>
         </div>

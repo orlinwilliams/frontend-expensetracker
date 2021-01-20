@@ -1,67 +1,65 @@
-<div class="container-fluid">
-  <div class="row instructions">
-    <div class="col-12 text-center">
-      <h3>Manage your expense categories</h3>
-    </div>
+<div class="row instructions">
+  <div class="col-12 text-center">
+    <h5 class="expense-color">Manage your expense categories</h5>
   </div>
-  <div class="row">
-    <div class="col-12 col-sm-8 col-md-8 col-lg-8 col-xl-8">
-      <div class="card">
-        <div class="card-body">
-          <h5 class="card-title text-center mb-4">Category list</h5>
-          <table class="table table-hover">
-            <thead>
-              <tr>
-                <th scope="col">Title</th>
-                <th scope="col">Limit</th>
-                <th scope="col">Actions</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>Mark</td>
-                <td>15</td>
-                <td>
-                  <fa-icon
-                    class="action-icon"
-                    ngbTooltip="Edit"
-                    [icon]="faEdit"
-                  ></fa-icon>
-                  <fa-icon
-                    class="action-icon"
-                    ngbTooltip="Delete"
-                    [icon]="faTrashAlt"
-                  ></fa-icon>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
+</div>
+<div class="row">
+  <div class="col-12 col-sm-8 col-md-8 col-lg-8 col-xl-7">
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title text-center mb-4">Category list</h5>
+        <table class="table table-hover">
+          <thead>
+            <tr>
+              <th scope="col">Title</th>
+              <th scope="col">Limit</th>
+              <th scope="col">Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Mark</td>
+              <td>15</td>
+              <td>
+                <fa-icon
+                  class="action-icon"
+                  ngbTooltip="Edit"
+                  [icon]="faEdit"
+                ></fa-icon>
+                <fa-icon
+                  class="action-icon"
+                  ngbTooltip="Delete"
+                  [icon]="faTrashAlt"
+                ></fa-icon>
+              </td>
+            </tr>
+          </tbody>
+        </table>
       </div>
     </div>
-    <div class="col-12 col-sm-8 col-md-4 col-lg-4 col-xl-4">
-      <div class="card">
-        <div class="card-body">
-          <h5 class="card-title text-center">New category</h5>
-          <form >
-            <div class="form-group">
-              <label for="title">Title</label>
-              <input type="text" class="form-control" placeholder="food">
-            </div> 
-            <div class="form-group">
-              <label for="limit">Limit</label>
-              <div class="input-group-prepend">
-                <span class="input-group-text">$</span>
-                <input type="number" class="form-control" id="limit" required />
-              </div>
+  </div>
+  <div class="col-12 col-sm-8 col-md-4 col-lg-4 col-xl-5">
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title text-center">New category</h5>
+        <form>
+          <div class="form-group">
+            <label for="title">Title</label>
+            <input type="text" class="form-control" placeholder="food" />
+          </div>
+          <div class="form-group">
+            <label for="limit">Limit</label>
+            <div class="input-group-prepend">
+              <span class="input-group-text">$</span>
+              <input type="number" class="form-control" id="limit" required />
             </div>
-            <div class="button-options float-right">
-              <button class="btn btn-primary btn-sm">Save</button>
-              <button class="btn btn-primary btn-sm">Editar</button>
-              <button class="btn btn-secondary btn-sm">Cancelar</button>
-            </div>                         
-          </form>
-        </div>
+          </div>
+          <div class="button-options float-right">
+            <button class="btn btn-primary btn-sm">Save</button>
+            <button class="btn btn-primary btn-sm">Editar</button>
+            <button class="btn btn-secondary btn-sm">Cancelar</button>
+          </div>
+        </form>
       </div>
     </div>
   </div>

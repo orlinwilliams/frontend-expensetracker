@@ -33,7 +33,5 @@ export class SidebarComponent implements OnInit {
       this.modeNum = 1;
     }
   }
-  openOptionsCategories(){
-    this.showOptionsCategories = !this.showOptionsCategories
-  }
+  
 }
