@@ -8,10 +8,11 @@ import {MatTableDataSource} from '@angular/material/table';
 })
 export class ExpensesComponent implements OnInit,AfterViewInit {
 
-  displayedColumns: string[] = ['position', 'date', 'category', 'value'];
+  displayedColumns: string[] = ['date', 'category', 'value'];
   DATA = [
-    { position: 1, date: 'Hydrogen', category: 1.0079, value: 'H' },
-    { position: 2, date: 'Hydrogen', category: 2.025, value: 'M' },
+    { date: 'Cloro', category: 1.0079, value: 'H' },
+    { date: 'Oxigen', category: 3.025, value: 'M' },
+    { date: 'Hydrogen', category: 2.025, value: 'M' },
     
   ];
   dataSource = new MatTableDataSource(this.DATA);
