@@ -10,6 +10,7 @@ import { IncomeCategoryComponent } from './income-category/income-category.compo
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { HomeCategoryComponent } from './home-category/home-category.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -24,6 +25,8 @@ import { HomeCategoryComponent } from './home-category/home-category.component';
     SharedModule,
     FontAwesomeModule,
     NgbModule,
+    FormsModule,
+    ReactiveFormsModule
   ],
 })
 export class CategoriesModule {}

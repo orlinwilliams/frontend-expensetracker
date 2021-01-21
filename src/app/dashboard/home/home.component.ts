@@ -10,6 +10,9 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 })
 export class HomeComponent implements OnInit {
   faPlusCircle = faPlusCircle;
+  validatedSelectCategory: boolean = true;
+  optionModal: string = '';
+
   formExpense = new FormGroup({
     value: new FormControl('', [Validators.required]),
     category: new FormControl('selectCategory', [Validators.required]),
@@ -18,24 +21,17 @@ export class HomeComponent implements OnInit {
     value: new FormControl('', [Validators.required]),
     category: new FormControl('selectCategory', [Validators.required]),
   });
-  validatedSelectCategory: boolean = true;
-  optionModal: string = '';
+
   constructor(private modalService: NgbModal) {}
   ngOnInit(): void {}
 
-  resetForm() {
-    this.formExpense.setValue({ value: '', category: 'selectCategory' });
-  }
   openModal(modal: any, event: any): void {
     this.modalService.open(modal, { centered: true });
     this.validatedSelectCategory = true;
-    if (event.target.outerText === 'Income') {
-      this.optionModal = 'Income';
-    } else if (event.target.outerText === 'Expense') {
-      this.optionModal = 'Expense';
-    }
+    if (event.target.outerText === 'Income') this.optionModal = 'Income';
+    else if (event.target.outerText === 'Expense') this.optionModal = 'Expense';
   }
-  validatorCategory(event:any) {
+  validatorCategory(event: any) {
     if (event.target.value != 'selectCategory')
       this.validatedSelectCategory = false;
     else this.validatedSelectCategory = true;

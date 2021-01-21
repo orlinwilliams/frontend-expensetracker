@@ -4,7 +4,7 @@
   </div>
 </div>
 <div class="row">
-  <div class="col-12 col-sm-8 col-md-8 col-lg-8 col-xl-7">
+  <div class="col-12 col-sm-8 col-md-8 col-lg-8 col-xl-7 mb-2">
     <div class="card">
       <div class="card-body">
         <h5 class="card-title text-center mb-4">Category list</h5>
@@ -38,26 +38,46 @@
       </div>
     </div>
   </div>
-  <div class="col-12 col-sm-8 col-md-4 col-lg-4 col-xl-5">
+  <div class="col-12 col-sm-8 col-md-4 col-lg-4 col-xl-5 mb-2">
     <div class="card">
       <div class="card-body">
         <h5 class="card-title text-center">New category</h5>
-        <form>
+        <form [formGroup]="formCategory">
           <div class="form-group">
             <label for="title">Title</label>
-            <input type="text" class="form-control" placeholder="food" />
+            <input
+              type="text"
+              class="form-control"
+              placeholder="food"
+              formControlName="title"
+            />
           </div>
           <div class="form-group">
             <label for="limit">Limit</label>
             <div class="input-group-prepend">
               <span class="input-group-text">$</span>
-              <input type="number" class="form-control" id="limit" required />
+              <input
+                type="number"
+                class="form-control"
+                id="limit"
+                required
+                formControlName="limit"
+              />
             </div>
           </div>
           <div class="button-options float-right">
-            <button class="btn btn-primary btn-sm">Save</button>
-            <button class="btn btn-primary btn-sm">Editar</button>
-            <button class="btn btn-secondary btn-sm">Cancelar</button>
+            <button
+              class="btn btn-primary btn-sm"
+              [disabled]="!formCategory.valid"
+            >
+              Save
+            </button>
+            <button class="btn btn-primary btn-sm" *ngIf="showButtonEdit">
+              Editar
+            </button>
+            <button class="btn btn-secondary btn-sm" *ngIf="showButtonEdit">
+              Cancelar
+            </button>
           </div>
         </form>
       </div>

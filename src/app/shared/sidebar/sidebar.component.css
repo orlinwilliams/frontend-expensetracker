@@ -15,8 +15,8 @@ ng-sidebar-container {
   cursor: pointer;
 }
 .option-sidebar:hover {
-  background: #d1cfcf;
+  background: rgba(223, 217, 217 ,0.9);
 }
 .active-link{
-  background: #d1cfcf;
+  background: rgba(223, 217, 217 ,0.9);
 }
