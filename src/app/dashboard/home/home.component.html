@@ -45,24 +45,36 @@
     </button>
   </div>
   <div class="modal-body">
-    <form>
+    <form [formGroup]="formExpense">
       <div class="form-group">
         <label for="newValue">Value</label>
         <div class="input-group-prepend">
           <span class="input-group-text">$</span>
-          <input type="number" class="form-control" id="newValue" required />
+          <input
+            type="number"
+            class="form-control"
+            id="newValue"
+            required
+            formControlName="value"
+          />
         </div>
       </div>
       <div class="form-group" *ngIf="optionModal == 'Income'">
-        <label for="newCategory">Category</label>
-        <select class="form-control" id="newCategory">
-          <option>Sueldo</option>
+        <label for="newCategoryIncome">Category</label>
+        <select class="form-control" id="newCategoryIncome">
+          <option>Select category</option>
         </select>
       </div>
       <div class="form-group" *ngIf="optionModal == 'Expense'">
-        <label for="newCategory">Category</label>
-        <select class="form-control" id="newCategory">
-          <option>Comida</option>
+        <label for="newCategoryExpense">Category</label>
+        <select
+          class="form-control"
+          id="newCategoryExpense"
+          formControlName="category"
+          (change)="validatorSelectCategory()"          
+        >
+          <option value="selectCategory">Select category</option>
+          <option value="food">food</option>
         </select>
       </div>
     </form>
@@ -77,6 +89,8 @@
       type="button"
       class="btn btn-primary float-right"
       *ngIf="optionModal == 'Expense'"
+      (click)="saveExpense()"
+      [disabled]="!formExpense.valid || validatedSelectCategory"
     >
       Save
     </button>

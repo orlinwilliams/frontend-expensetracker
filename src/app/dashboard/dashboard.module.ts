@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { DashboardRoutingModule } from './dashboard-routing.module';
 import { SharedModule } from '../shared/shared.module';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { AngularMaterialModule } from '../angular-material/angular-material.module';
@@ -27,6 +27,7 @@ import { IncomeComponent } from './income/income.component';
     DashboardRoutingModule,
     SharedModule,
     FormsModule,
+    ReactiveFormsModule,
     NgbModule,
     FontAwesomeModule,
     AngularMaterialModule    

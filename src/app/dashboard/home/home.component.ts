@@ -1,5 +1,6 @@
-import {Component, OnInit  } from '@angular/core';
-import {faPlusCircle} from '@fortawesome/free-solid-svg-icons';
+import { Component, OnInit } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { faPlusCircle } from '@fortawesome/free-solid-svg-icons';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
@@ -9,22 +10,33 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 })
 export class HomeComponent implements OnInit {
   faPlusCircle = faPlusCircle;
+  formExpense = new FormGroup({
+    value: new FormControl('', [Validators.required]),
+    category: new FormControl('selectCategory', [Validators.required]),
+  });
+  validatedSelectCategory: boolean = true;
+  optionModal: string = '';
+  constructor(private modalService: NgbModal) {}
+  ngOnInit(): void {}
 
-  optionModal:string = '' ;
-  constructor(private modalService:NgbModal) {
-  }
-  ngOnInit(): void {    
-  }
-
-  openModal(modal:any, event:any):void{
-    this.modalService.open(modal);
-    if(event.target.outerText === 'Income'){
+  openModal(modal: any, event: any): void {
+    this.modalService.open(modal, { centered: true });
+    if (event.target.outerText === 'Income') {
       this.optionModal = 'Income';
-    }
-    else if(event.target.outerText === 'Expense'){
+    } else if (event.target.outerText === 'Expense') {
       this.optionModal = 'Expense';
+    }
+  }
+  validatorSelectCategory() {
+    if (this.formExpense.get('category')?.value != 'selectCategory'){
+      this.validatedSelectCategory = false;
+    }
+    else{
+      this.validatedSelectCategory = true;
     }
     
   }
-  
+  saveExpense() {
+    console.log(this.formExpense.valid);
+  }
 }
