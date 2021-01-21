@@ -14,11 +14,18 @@ export class HomeComponent implements OnInit {
     value: new FormControl('', [Validators.required]),
     category: new FormControl('selectCategory', [Validators.required]),
   });
+  formIncome = new FormGroup({
+    value: new FormControl('', [Validators.required]),
+    category: new FormControl('selectCategory', [Validators.required]),
+  });
   validatedSelectCategory: boolean = true;
   optionModal: string = '';
   constructor(private modalService: NgbModal) {}
   ngOnInit(): void {}
 
+  resetForm() {
+    this.formExpense.setValue({ value: '', category: 'selectCategory' });
+  }
   openModal(modal: any, event: any): void {
     this.modalService.open(modal, { centered: true });
     if (event.target.outerText === 'Income') {
@@ -28,15 +35,14 @@ export class HomeComponent implements OnInit {
     }
   }
   validatorSelectCategory() {
-    if (this.formExpense.get('category')?.value != 'selectCategory'){
+    if (this.formExpense.get('category')?.value != 'selectCategory')
       this.validatedSelectCategory = false;
-    }
-    else{
-      this.validatedSelectCategory = true;
-    }
-    
+    else this.validatedSelectCategory = true;
   }
   saveExpense() {
-    console.log(this.formExpense.valid);
+    console.log(this.formExpense.value);
+  }
+  saveIncome() {
+    console.log(this.formIncome.value);
   }
 }
