@@ -65,8 +65,10 @@
           class="form-control"
           id="newCategoryIncome"
           formControlName="category"
+          (change)="validatorCategory($event)"
         >
           <option value="selectCategory">Select category</option>
+          <option value="sueldo">sueldo</option>
         </select>
       </div>
     </form>
@@ -90,7 +92,7 @@
           class="form-control"
           id="newCategoryExpense"
           formControlName="category"
-          (change)="validatorSelectCategory()"
+          (change)="validatorCategory($event)"
         >
           <option value="selectCategory">Select category</option>
           <option value="food">food</option>
@@ -102,6 +104,7 @@
       class="btn btn-primary float-right"
       *ngIf="optionModal == 'Income'"
       (click)="saveIncome()"
+      [disabled]="!formIncome.valid || validatedSelectCategory"
     >
       Save
     </button>

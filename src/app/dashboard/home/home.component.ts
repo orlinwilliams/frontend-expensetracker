@@ -28,14 +28,15 @@ export class HomeComponent implements OnInit {
   }
   openModal(modal: any, event: any): void {
     this.modalService.open(modal, { centered: true });
+    this.validatedSelectCategory = true;
     if (event.target.outerText === 'Income') {
       this.optionModal = 'Income';
     } else if (event.target.outerText === 'Expense') {
       this.optionModal = 'Expense';
     }
   }
-  validatorSelectCategory() {
-    if (this.formExpense.get('category')?.value != 'selectCategory')
+  validatorCategory(event:any) {
+    if (event.target.value != 'selectCategory')
       this.validatedSelectCategory = false;
     else this.validatedSelectCategory = true;
   }
