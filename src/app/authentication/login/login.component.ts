@@ -8,14 +8,14 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 })
 export class LoginComponent implements OnInit {
   errorPasswordOrEmail: boolean = false;
-
+  rePassword = /^(([^<>()\[\]\\.,;:\s@”]+(\.[^<>()\[\]\\.,;:\s@”]+)*)|(“.+”))@((\[[0–9]{1,3}\.[0–9]{1,3}\.[0–9]{1,3}\.[0–9]{1,3}])|(([a-zA-Z\-0–9]+\.)+[a-zA-Z]{2,}))$/;
   minLengthPassword: number = 4;
   formLogin = new FormGroup({
     email: new FormControl('', [
       Validators.required,
-      Validators.email,
-      Validators.minLength(this.minLengthPassword),
-      Validators.maxLength(50),
+      Validators.pattern(this.rePassword),
+      Validators.minLength(8),
+      Validators.maxLength(40),
     ]),
     password: new FormControl('', [
       Validators.required,
@@ -25,7 +25,7 @@ export class LoginComponent implements OnInit {
   constructor() {}
 
   ngOnInit(): void {}
-  login(){
-    console.log(this.formLogin.value)
+  login() {
+    console.log(this.formLogin.value);
   }
 }
