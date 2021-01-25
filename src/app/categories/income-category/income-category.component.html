@@ -20,6 +20,7 @@
               <td >{{category.title}}</td>
               <td>
                 <fa-icon
+                  (click)="getCategory(category._id)"
                   class="action-icon"
                   ngbTooltip="Edit"
                   [icon]="faEdit"
@@ -52,17 +53,18 @@
           </div>
           <div class="button-options float-right">
             <button
+              *ngIf="!showButtonEdit"
               class="btn btn-primary btn-sm"
               [disabled]="!formCategory.valid"
               (click)="saveIncome()"
             >
               Save
             </button>
-            <button class="btn btn-primary btn-sm" *ngIf="showButtonIncome">
-              Editar
+            <button class="btn btn-primary btn-sm" *ngIf="showButtonEdit" (click)="updateCategory()" >
+              Edit
             </button>
-            <button class="btn btn-secondary btn-sm" *ngIf="showButtonIncome">
-              Cancelar
+            <button class="btn btn-secondary btn-sm" *ngIf="showButtonEdit" (click)="cancelEdit()">
+              Cancel
             </button>
           </div>
         </form>

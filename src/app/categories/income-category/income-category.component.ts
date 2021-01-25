@@ -11,9 +11,10 @@ import { IncomeCategoriesService } from 'src/app/services/categories/income-cate
 export class IncomeCategoryComponent implements OnInit {
   faTrashAlt = faTrashAlt;
   faEdit = faEdit;
-  showButtonIncome: boolean = false;
-  showTable:boolean = false;
-  incomeCategories:any = [];
+  showButtonEdit: boolean = false;
+  showTable: boolean = false;
+  incomeCategories: Array<any> = [];
+  currentCategory:any = {};
   formCategory = new FormGroup({
     title: new FormControl('', [Validators.required, Validators.minLength(3)]),
   });
@@ -26,7 +27,18 @@ export class IncomeCategoryComponent implements OnInit {
     this.getCategories();
   }
   saveIncome() {
-    console.log(this.formCategory.value);
+    this.incomeCategoriesService
+      .createCategory(
+        this.currentUserService.getUserId(),
+        this.formCategory.value
+      )
+      .subscribe(
+        (res:any) => {
+          this.getCategories();
+          this.formCategory.reset();
+        },
+        (error) => console.log(error)
+      );    
   }
   getCategories() {
     this.incomeCategoriesService
@@ -34,7 +46,39 @@ export class IncomeCategoryComponent implements OnInit {
       .subscribe(
         (res: any) => {
           this.incomeCategories = res.data.incomeCategories;
-          console.log(this.incomeCategories);                    
+          console.log(this.incomeCategories);
+        },
+        (error) => console.log(error)
+      );
+  }
+  getCategory(idCategory:string) {
+    this.incomeCategoriesService
+      .getCategory(this.currentUserService.getUserId(), idCategory)
+      .subscribe(
+        (res: any) => {                    
+          this.showButtonEdit = true;
+          this.currentCategory = res.data;
+          console.log(this.currentCategory)
+          this.formCategory.patchValue({title:this.currentCategory.title});
+        },
+        (error) => console.log(error)
+      );
+  }
+  cancelEdit(){
+    this.showButtonEdit = false;
+    this.formCategory.reset();
+  }
+  updateCategory(){
+    this.incomeCategoriesService
+      .updateCategory(
+        this.currentUserService.getUserId(),
+        this.currentCategory._id,
+        this.formCategory.value
+      )
+      .subscribe(
+        (res:any) => {
+          this.getCategories();
+          this.cancelEdit();
         },
         (error) => console.log(error)
       );
