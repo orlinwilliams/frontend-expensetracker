@@ -14,11 +14,21 @@ export class CurrentUserService {
     const user = JSON.parse(localStorage.getItem('data') || '');
     return user;
   }
-  getUserId() {
+  getUserId():string {
     if (localStorage.getItem('data') == null) return 'No exist Id';
 
     const user = JSON.parse(localStorage.getItem('data') || '');
     return user._id;
+  }
+  existToken():boolean{
+    if (localStorage.getItem('data') == null) return false;
+    return true;
+  }
+  getUserToken():string {
+    if (localStorage.getItem('data') == null) return 'No exist token';
+
+    const user = JSON.parse(localStorage.getItem('data') || '');
+    return user.token;
   }
   getUserEmail() {
     if (localStorage.getItem('data') == null) return 'Not user';

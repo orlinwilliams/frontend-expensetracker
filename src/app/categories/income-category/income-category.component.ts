@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { faTrashAlt, faEdit } from '@fortawesome/free-regular-svg-icons';
+import { CurrentUserService } from 'src/app/services/authentication/current-user.service';
+import { IncomeCategoriesService } from 'src/app/services/categories/income-categories.service';
 @Component({
   selector: 'app-income-category',
   templateUrl: './income-category.component.html',
@@ -10,13 +12,29 @@ export class IncomeCategoryComponent implements OnInit {
   faTrashAlt = faTrashAlt;
   faEdit = faEdit;
   showButtonIncome: boolean = false;
+  incomeCategories = [];
   formCategory = new FormGroup({
     title: new FormControl('', [Validators.required, Validators.minLength(3)]),
   });
-  constructor() {}
+  constructor(
+    private incomeCategoriesService: IncomeCategoriesService,
+    private currentUserService: CurrentUserService
+  ) {}
 
-  ngOnInit(): void {}
-  saveIncome(){
+  ngOnInit(): void {
+    this.getCategories();
+  }
+  saveIncome() {
     console.log(this.formCategory.value);
+  }
+  getCategories() {
+    this.incomeCategoriesService
+      .getCategories(this.currentUserService.getUserId())
+      .subscribe(
+        (res: any) => {
+          console.log(res);
+        },
+        (error) => console.log(error)
+      );
   }
 }
