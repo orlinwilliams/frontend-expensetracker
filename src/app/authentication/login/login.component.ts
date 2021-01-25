@@ -38,7 +38,15 @@ export class LoginComponent implements OnInit {
         this.currentUserService.saveUser(res);
         this.router.navigateByUrl('/dashboard');
       },
-      (error) => console.log(error)
+      (error) => {
+        console.log(error);
+        this.showError();        
+      }
     );
   }
+  showError(){
+    this.errorPasswordOrEmail = true;
+    setTimeout(()=>this.errorPasswordOrEmail = false, 3000);
+  }
 }
+
