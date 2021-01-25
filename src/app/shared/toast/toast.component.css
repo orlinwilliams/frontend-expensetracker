@@ -1,0 +1,18 @@
+.success{
+  position: fixed;
+  top:10vh;
+  right: 0;
+  margin: 1.2rem;
+  z-index: 1200;
+  background: #026873;
+  color: white;
+}
+.danger {
+  position: fixed;
+  top: 10vh;
+  right: 0;
+  margin: 1.2em;
+  z-index: 1200;
+  background: #f20c49;
+  color: white;
+} 

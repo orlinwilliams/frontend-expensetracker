@@ -1,0 +1,9 @@
+<ngb-toast
+  *ngIf="showToast"
+  [class]="classToast"
+  [autohide]="true"
+  [delay]="4000"
+  (hidden)="showToast = false"
+>
+  {{ message }}
+</ngb-toast>

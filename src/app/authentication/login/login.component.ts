@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { CurrentUserService } from 'src/app/services/authentication/current-user.service';
+import { LoginService } from 'src/app/services/authentication/login.service';
 
 @Component({
   selector: 'app-login',
@@ -22,10 +25,20 @@ export class LoginComponent implements OnInit {
       Validators.minLength(this.minLengthPassword),
     ]),
   });
-  constructor() {}
+  constructor(
+    private loginService: LoginService,
+    private currentUserService: CurrentUserService,
+    private router:Router
+  ) {}
 
   ngOnInit(): void {}
   login() {
-    console.log(this.formLogin.value);
+    this.loginService.login(this.formLogin.value).subscribe(
+      (res: any) => {        
+        this.currentUserService.saveUser(res);
+        this.router.navigateByUrl('/dashboard');
+      },
+      (error) => console.log(error)
+    );
   }
 }

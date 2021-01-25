@@ -16,12 +16,17 @@
       <div class="form-group">
         <label for="password">Password</label>
         <input
+          (keyup) = "errorPassword()"
           type="password"
           class="form-control"
           required
           id="password"
           formControlName="password"
         />
+      </div>
+      <div *ngIf="error">
+        <small class="form-text text-muted">{{messageError}}</small
+        ><br />
       </div>
       <div class="control-options">
         <a class="a-router-link" [routerLink]="['/authentication']">Login</a>

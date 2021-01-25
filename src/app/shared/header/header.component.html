@@ -12,14 +12,14 @@
         id="navbarDropdown3"
         role="button"
       >
-        currentUser
+        {{currentUserService.getUserEmail()}}
       </a>
       <div
         ngbDropdownMenu
         aria-labelledby="navbarDropdown3"
         class="dropdown-menu"
       >      
-        <a ngbDropdownItem href="#">Logout</a>
+        <a ngbDropdownItem href="#" (click)="logout()" >Logout</a>
       </div>
     </li>
   </ul>

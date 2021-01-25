@@ -10,9 +10,10 @@ import { SidebarComponent } from './sidebar/sidebar.component';
 import { HeaderComponent } from './header/header.component';
 import { SidebarModule } from 'ng-sidebar';
 import { NotFoundComponent } from './not-found/not-found.component';
+import { ToastComponent } from './toast/toast.component';
 
 @NgModule({
-  declarations: [HeaderComponent, SidebarComponent, NotFoundComponent],
+  declarations: [HeaderComponent, SidebarComponent, NotFoundComponent, ToastComponent],
   imports: [
     CommonModule,
     SharedRoutingModule,
@@ -20,6 +21,6 @@ import { NotFoundComponent } from './not-found/not-found.component';
     FontAwesomeModule,
     SidebarModule.forRoot(),
   ],
-  exports:[HeaderComponent, SidebarComponent]
+  exports:[HeaderComponent, SidebarComponent,ToastComponent]
 })
 export class SharedModule { }
