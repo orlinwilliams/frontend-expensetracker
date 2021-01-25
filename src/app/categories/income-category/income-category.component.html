@@ -16,8 +16,8 @@
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td>Mark</td>
+            <tr *ngFor="let category of incomeCategories">
+              <td >{{category.title}}</td>
               <td>
                 <fa-icon
                   class="action-icon"

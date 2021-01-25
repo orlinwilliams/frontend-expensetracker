@@ -12,7 +12,8 @@ export class IncomeCategoryComponent implements OnInit {
   faTrashAlt = faTrashAlt;
   faEdit = faEdit;
   showButtonIncome: boolean = false;
-  incomeCategories = [];
+  showTable:boolean = false;
+  incomeCategories:any = [];
   formCategory = new FormGroup({
     title: new FormControl('', [Validators.required, Validators.minLength(3)]),
   });
@@ -32,7 +33,8 @@ export class IncomeCategoryComponent implements OnInit {
       .getCategories(this.currentUserService.getUserId())
       .subscribe(
         (res: any) => {
-          console.log(res);
+          this.incomeCategories = res.data.incomeCategories;
+          console.log(this.incomeCategories);                    
         },
         (error) => console.log(error)
       );
