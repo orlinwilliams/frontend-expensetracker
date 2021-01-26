@@ -48,8 +48,7 @@ export class IncomeCategoryComponent implements OnInit {
       .getCategories(this.currentUserService.getUserId())
       .subscribe(
         (res: any) => {
-          this.incomeCategories = res.data.incomeCategories;
-          console.log(this.incomeCategories);
+          this.incomeCategories = res.data.incomeCategories;          
         },
         (error) => console.log(error)
       );

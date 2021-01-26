@@ -17,16 +17,18 @@
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td>Mark</td>
-              <td>15</td>
+            <tr *ngFor="let category of expenseCategories">
+              <td>{{ category.title }}</td>
+              <td>{{ category.limit }}</td>
               <td>
                 <fa-icon
+                  (click)="getCategory(category._id)"
                   class="action-icon"
                   ngbTooltip="Edit"
                   [icon]="faEdit"
                 ></fa-icon>
                 <fa-icon
+                  (click)="openModalConfirm(modalConfirm, category._id)"
                   class="action-icon"
                   ngbTooltip="Delete"
                   [icon]="faTrashAlt"
@@ -67,16 +69,26 @@
           </div>
           <div class="button-options float-right">
             <button
+              *ngIf="!showButtonEdit"
+              (click)="saveIncome()"
               class="btn btn-primary btn-sm"
               [disabled]="!formCategory.valid"
             >
               Save
             </button>
-            <button class="btn btn-primary btn-sm" *ngIf="showButtonEdit">
-              Editar
+            <button
+              class="btn btn-primary btn-sm"
+              *ngIf="showButtonEdit"
+              (click)="updateCategory()"
+            >
+              Edit
             </button>
-            <button class="btn btn-secondary btn-sm" *ngIf="showButtonEdit">
-              Cancelar
+            <button
+              class="btn btn-secondary btn-sm"
+              *ngIf="showButtonEdit"
+              (click)="cancelEdit()"
+            >
+              Cancel
             </button>
           </div>
         </form>
@@ -84,3 +96,23 @@
     </div>
   </div>
 </div>
+<ng-template #modalConfirm let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Confirm</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form>
+      <div class="form-group">
+        <h5>Are you sure you want to delete this item?</h5>
+        <h6>This process is irreversible</h6>
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-secondary btn-sm" (click)="modal.close('Save click')">Close</button>
+    <button type="button" class="btn btn-danger btn-sm" (click)="deleteCategory()">Confirm</button>
+  </div>
+</ng-template>
