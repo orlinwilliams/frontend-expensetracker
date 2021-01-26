@@ -68,7 +68,7 @@
           (change)="validatorCategory($event)"
         >
           <option value="selectCategory">Select category</option>
-          <option value="sueldo">sueldo</option>
+          <option *ngFor="let category of incomeCategories" [value]="category.title">{{category.title}}</option>
         </select>
       </div>
     </form>
