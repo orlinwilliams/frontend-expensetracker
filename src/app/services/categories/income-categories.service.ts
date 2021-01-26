@@ -29,4 +29,9 @@ export class IncomeCategoriesService {
       category
     );
   }
+  deleteCategory(idUser: string, idCategory: string): Observable<any> {
+    return this.httpClient.delete(
+      `${this.URL_API}${idUser}/category/${idCategory}`
+    );
+  }
 }
