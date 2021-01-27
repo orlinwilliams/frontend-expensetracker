@@ -1,7 +1,7 @@
 <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
   <ng-container matColumnDef="date">
-    <th mat-header-cell *matHeaderCellDef mat-sort-header>Date</th>
-    <td mat-cell *matCellDef="let element">{{ element.date.day }}/{{ element.date.month }}/{{ element.date.year }}</td>
+    <th mat-header-cell *matHeaderCellDef mat-sort-header="date.month">Date</th>
+    <td mat-cell *matCellDef="let element">{{ element.date.day}}/{{ element.date.month}}/{{ element.date.year}}</td>
   </ng-container>
   <ng-container matColumnDef="category">
     <th mat-header-cell *matHeaderCellDef mat-sort-header>Category</th>
@@ -14,9 +14,12 @@
   <ng-container matColumnDef="actions">
     <th mat-header-cell *matHeaderCellDef>Actions</th>
     <td mat-cell *matCellDef="let element">
-      <fa-icon class="action-icon" ngbTooltip="Edit" [icon]="faEdit"></fa-icon> 
-      <fa-icon class="action-icon" ngbTooltip="Delete" [icon]="faTrashAlt"></fa-icon> 
-    </td
+      <fa-icon class="action-icon" ngbTooltip="Edit" [icon]="faEdit"></fa-icon>
+      <fa-icon
+        class="action-icon"
+        ngbTooltip="Delete"
+        [icon]="faTrashAlt"
+      ></fa-icon></td
   ></ng-container>
 
   <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>

@@ -1,11 +1,10 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { faPlusCircle } from '@fortawesome/free-solid-svg-icons';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { CurrentUserService } from 'src/app/services/authentication/current-user.service';
 import { IncomeCategoriesService } from 'src/app/services/categories/income-categories.service';
 import { IncomeService } from 'src/app/services/dashboard/income.service';
-import { IncomeComponent } from 'src/app/dashboard/income/income.component';
 
 @Component({
   selector: 'app-home',
@@ -13,8 +12,8 @@ import { IncomeComponent } from 'src/app/dashboard/income/income.component';
   styleUrls: ['./home.component.css'],
 })
 
-export class HomeComponent implements OnInit {
-  @ViewChild(IncomeComponent) renderIncome?: IncomeComponent;
+export class HomeComponent implements OnInit,AfterViewInit {
+  
 
   faPlusCircle = faPlusCircle;
   validatedSelectCategory: boolean = true;
@@ -37,6 +36,10 @@ export class HomeComponent implements OnInit {
   ) {}
   ngOnInit(): void {
     this.getIncomeCategories();
+    //this.getIncomes({});
+  }
+  ngAfterViewInit() {
+        
   }
 
   openModal(modal: any, event: any): void {
@@ -66,7 +69,7 @@ export class HomeComponent implements OnInit {
       .subscribe(
         (res: any) => {
           this.formIncome.reset();
-          this.renderIncome?.getIncome();
+          //this.renderIncome?.getIncome();
         },
         (error) => console.log(error)
       );
@@ -89,5 +92,8 @@ export class HomeComponent implements OnInit {
       year: date.getFullYear(),
     };
     return dateJson;
+  }
+  getIncomes(date:any){
+    
   }
 }

@@ -12,9 +12,9 @@ export class ExpensesComponent implements OnInit, AfterViewInit {
   faTrashAlt = faTrashAlt;
   displayedColumns: string[] = ['date', 'category', 'value', 'actions'];
   DATA = [
-    { date: 'Cloro', category: 1.0079, value: 'H' },
-    { date: 'Oxigen', category: 3.025, value: 'M' },
-    { date: 'Hydrogen', category: 2.025, value: 'M' },
+    { date: '21/1/2020', category: 1.0079, value: {title: 'Hla'} },
+    { date: '01/1/2021', category: 3.025, value: {title: 'Para'} },
+    { date: '17/5/2019', category: 2.025, value: {title: 'Loco'} },
   ];
   dataSource = new MatTableDataSource(this.DATA);
   @ViewChild(MatSort) sort: MatSort = new MatSort();
@@ -23,5 +23,13 @@ export class ExpensesComponent implements OnInit, AfterViewInit {
   ngOnInit(): void {}
   ngAfterViewInit() {
     this.dataSource.sort = this.sort;
+    this.dataSource.sortingDataAccessor = (data, sortHeaderId: string) => {
+      return this.getPropertyByPath(data, sortHeaderId);
+    };
+    
+  }
+  
+  getPropertyByPath(obj: Object, pathString: string){
+    return pathString.split('.').reduce((o:any, i:any) => o[i], obj);
   }
 }
