@@ -6,7 +6,7 @@
           <div class="row justify-content-between">
             <div class="col-9">
               <div class="row item-title">Income</div>
-              <div class="row item-value">$40</div>
+              <div class="row item-value">$ {{incomeService.currentTotalIncome$ | async}}</div>
             </div>
             <div class="col-3">
               <fa-icon class="arrow-up-icon" [icon]="faArrowAltCircleUp"></fa-icon>
