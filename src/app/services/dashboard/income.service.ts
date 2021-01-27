@@ -11,9 +11,7 @@ export class IncomeService {
   createIncome(id: string, income: any): Observable<any> {
     return this.httpClient.post(this.URL_API + id, income);
   }
-  // getIncome(id: string): Observable<any> {
-  //   return this.httpClient.get(this.URL_API + id);
-  // }
+  
   getIncome(idUser:string, month:string, year:string){
     return this.httpClient.get(
       `${this.URL_API}${idUser}/month/${month}/year/${year}`
@@ -34,9 +32,9 @@ export class IncomeService {
       category
     );
   }
-  deleteCategory(idUser: string, idCategory: string): Observable<any> {
+  deleteAnIncome(idUser: string, idIncome: string): Observable<any> {
     return this.httpClient.delete(
-      `${this.URL_API}${idUser}/category/${idCategory}`
+      `${this.URL_API}${idUser}/item/${idIncome}`
     );
   }
   

@@ -38,7 +38,7 @@ export class MonthCalendarComponent implements OnInit, AfterViewInit {
 
   formatDateObject(date: string): object {
     const arrayDate = date.split('-');
-    return { month: parseInt(arrayDate[0]), year: parseInt(arrayDate[1]) };
+    return { month: parseInt(arrayDate[1]), year: parseInt(arrayDate[0]) };
   }
 
   formatMonthToCalendar(month: number): string {
