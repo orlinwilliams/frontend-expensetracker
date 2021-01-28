@@ -1,6 +1,6 @@
 <div class="container-fluid mb-3">
   <app-month-calendar></app-month-calendar>
-  <div class="row">
+  <div class="row mt-4">
     <div class="col-12 col-sm-10 col-md-8 col-lg-6 col-xl-6">
       <div class="card">
         <div class="card-body">
@@ -18,13 +18,16 @@
             </canvas>
           </div>
           <ul class="list-group list-group-flush">
-            <li class="list-group-item" *ngFor="let item of expensesData.renderItems" >
+            <li
+              class="list-group-item"
+              *ngFor="let item of expensesData.renderItems"
+            >
               <div class="row">
                 <div class="col-8">
-                  <span>{{item.tag}}</span>
+                  <span>{{ item.tag }}</span>
                 </div>
                 <div class="col-4">
-                  <span class="float-right">$ {{item.value}}</span>
+                  <span class="float-right">$ {{ item.value }}</span>
                 </div>
               </div>
               <div class="row">
@@ -32,10 +35,12 @@
                   <span>Percentage</span>
                 </div>
                 <div class="col-4">
-                  <span class="float-right">{{item.value/expensesData.total | percent}}</span>
+                  <span class="float-right">{{
+                    item.value / expensesData.total | percent
+                  }}</span>
                 </div>
               </div>
-            </li>            
+            </li>
           </ul>
         </div>
       </div>
@@ -44,52 +49,39 @@
       <div class="card">
         <div class="card-body">
           <h5 class="card-title text-center">Income</h5>
-          <!-- <div class="chart">
+          <div class="chart">
             <canvas
               baseChart
-              [data]="pieChartData"
-              [labels]="pieChartLabels"
+              [data]="pieChartDataIncome"
+              [labels]="pieChartLabelsIncome"
               [chartType]="pieChartType"
               [options]="pieChartOptions"
-              [colors]="pieChartColors"
+              [colors]="pieChartColorsIncome"
               [legend]="pieChartLegend"
             >
             </canvas>
-          </div> -->
+          </div>
           <ul class="list-group list-group-flush">
-            <li class="list-group-item">
+            <li
+              class="list-group-item"
+              *ngFor="let item of incomeData.renderItems"
+            >
               <div class="row">
                 <div class="col-8">
-                  <span>Salud</span>
+                  <span>{{ item.tag }}</span>
                 </div>
                 <div class="col-4">
-                  <span class="float-right">$400</span>
+                  <span class="float-right">$ {{ item.value }}</span>
                 </div>
               </div>
               <div class="row">
                 <div class="col-8">
-                  <span>Porcentage</span>
+                  <span>Percentage</span>
                 </div>
                 <div class="col-4">
-                  <span class="float-right">40%</span>
-                </div>
-              </div>
-            </li>
-            <li class="list-group-item">
-              <div class="row">
-                <div class="col-8">
-                  <span>Salud</span>
-                </div>
-                <div class="col-4">
-                  <span class="float-right">$400</span>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-8">
-                  <span>Porcentage</span>
-                </div>
-                <div class="col-4">
-                  <span class="float-right">40%</span>
+                  <span class="float-right">{{
+                    item.value / incomeData.total | percent
+                  }}</span>
                 </div>
               </div>
             </li>

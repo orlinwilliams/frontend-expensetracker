@@ -5,6 +5,7 @@ import { Subscription } from 'rxjs';
 import { CurrentUserService } from 'src/app/services/authentication/current-user.service';
 import { CurrentDateService } from 'src/app/services/dashboard/current-date.service';
 import { ExpenseService } from 'src/app/services/dashboard/expense.service';
+import { IncomeService } from 'src/app/services/dashboard/income.service';
 
 @Component({
   selector: 'app-home-reports',
@@ -13,7 +14,9 @@ import { ExpenseService } from 'src/app/services/dashboard/expense.service';
 })
 export class HomeReportsComponent implements OnInit {
   expenseSubscription: Subscription = new Subscription();
-  expensesData:any = {}
+  incomeSubscription: Subscription = new Subscription();
+  expensesData:any = {};
+  incomeData:any = {}
   pieChartOptions: ChartOptions = {
     responsive: true,
     legend: {
@@ -31,6 +34,9 @@ export class HomeReportsComponent implements OnInit {
   pieChartLabelsExpense: Label[] = [];
   pieChartDataExpense: number[] = [];
   pieChartColorsExpense:any = [];
+  pieChartLabelsIncome: Label[] = [];
+  pieChartDataIncome: number[] = [];
+  pieChartColorsIncome:any = [];
   pieChartType: ChartType = 'pie';
   pieChartLegend = true;
   
@@ -38,11 +44,13 @@ export class HomeReportsComponent implements OnInit {
   constructor(
     private currentDateService: CurrentDateService,
     private expenseService: ExpenseService,
+    private incomeService:IncomeService,
     private currentUserService: CurrentUserService
   ) {}
 
   ngOnInit(): void {
     this.getExpenses();
+    this.getIncome();
   }
 
   getExpenses(): void {
@@ -51,9 +59,25 @@ export class HomeReportsComponent implements OnInit {
         this.expenseService
           .getExpenses(this.currentUserService.getUserId(), res.month, res.year)
           .subscribe(
-            (res: any) => {                            
-              this.expensesData = this.dataToChart(res.data)
+            (res: any) => {                                          
+              this.expensesData = this.dataToChart(res.data, 'expense');
               this.createChartExpense(this.expensesData.tags, this.expensesData.values);              
+            },
+            (error) => console.log(error)
+          );
+      }
+    );
+  }
+  getIncome():void {
+    this.incomeSubscription = this.currentDateService.currentDate$.subscribe(
+      (res: any) => {
+        this.incomeService
+          .getIncome(this.currentUserService.getUserId(), res.month, res.year)
+          .subscribe(
+            (res: any) => {              
+              this.incomeData = this.dataToChart(res.data,'income');              
+              console.log(this.incomeData);
+              this.createChartIncome(this.incomeData.tags, this.incomeData.values);
             },
             (error) => console.log(error)
           );
@@ -71,10 +95,21 @@ export class HomeReportsComponent implements OnInit {
       ],
     },]
   }
+  createChartIncome(labels:Label[],values:number[]){
+    this.pieChartLabelsIncome = labels
+    this.pieChartDataIncome = values
+    this.pieChartColorsIncome = [{
+      backgroundColor: [
+        'rgba(0, 255, 31 ,0.5)',
+        'rgba(0, 251, 255 ,0.5)',
+        'rgba(0, 62, 255 ,0.5)',
+      ],
+    },]
+  }
 
-  dataToChart(data: any): object {
-    const tags = this.getTags(data);
-    const values = this.getValues(data, this.getTags(data));
+  dataToChart(data: any, type:string): object {
+    const tags = this.getTags(data, type);
+    const values = this.getValues(data, tags, type);
     const renderItems = this.renderValues(tags, values);
     const total = this.totalValue(values);
     return {
@@ -84,28 +119,56 @@ export class HomeReportsComponent implements OnInit {
       total,
     };
   }
-  getTags(array: any): Array<string> {
+  getTags(array: any, type:string): Array<string> {
     let tags: Array<string> = [];
-    array.forEach((item: any) => {
-      tags.push(item.category.title);
-    });
-    let tagsFinal = tags.filter((item: string, index: number) => {
-      return tags.indexOf(item) === index;
-    });
-    return tagsFinal;
-  }
-  getValues(data: any, tags: any): Array<number> {
-    let values: Array<number> = [];
-    tags.forEach((item: string) => {
-      let valueCategory = 0;
-      data.forEach((el: any) => {
-        if (el.category.title == item) {
-          valueCategory += el.value;
-        }
+    if(type == 'expense'){
+      array.forEach((item: any) => {
+        tags.push(item.category.title);
       });
-      values.push(valueCategory);
-    });
-    return values;
+      let tagsFinal = tags.filter((item: string, index: number) => {
+        return tags.indexOf(item) === index;
+      });
+      return tagsFinal;  
+    }
+    else if(type == 'income'){
+      array.forEach((item: any) => {
+        tags.push(item.category);
+      });
+      let tagsFinal = tags.filter((item: string, index: number) => {
+        return tags.indexOf(item) === index;
+      });
+      return tagsFinal;
+    }
+    return tags
+  }
+  getValues(data: any, tags: any, type:string): Array<number> {
+    let values: Array<number> = [];
+    if(type == 'expense'){
+      tags.forEach((item: string) => {
+        let valueCategory = 0;
+        data.forEach((el: any) => {
+          if (el.category.title == item) {
+            valueCategory += el.value;
+          }
+        });
+        values.push(valueCategory);
+      });
+      return values;
+    }
+    else if(type == 'income'){
+      tags.forEach((item: string) => {
+        let valueCategory = 0;
+        data.forEach((el: any) => {
+          if (el.category == item) {
+            valueCategory += el.value;
+          }
+        });
+        values.push(valueCategory);
+      });
+      return values;
+    }
+    return values
+    
   }
   renderValues(tags: Array<string>, values: Array<number>): Array<any> {
     let valuesFinal: any = [];
