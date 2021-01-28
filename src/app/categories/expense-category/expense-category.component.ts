@@ -49,8 +49,7 @@ export class ExpenseCategoryComponent implements OnInit {
       .getCategories(this.currentUserService.getUserId())
       .subscribe(
         (res: any) => {
-          this.expenseCategories = res.data.expenseCategories;
-          console.log(this.expenseCategories);
+          this.expenseCategories = res.data.expenseCategories;          
         },
         (error) => console.log(error)
       );

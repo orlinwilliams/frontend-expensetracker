@@ -60,7 +60,7 @@ export class ExpensesComponent implements OnInit, AfterViewInit {
           .subscribe(
             (res: any) => {
               this.dataSource.data = res.data;
-              //this.totalIncome(this.dataSource.data);
+              this.totalExpense(this.dataSource.data);
             },
             (error) => console.log(error)
           );
@@ -73,7 +73,7 @@ export class ExpensesComponent implements OnInit, AfterViewInit {
       .subscribe(
         (res: any) => {
           this.dataSource.data = res.data;
-          //this.totalIncome(this.dataSource.data);
+          this.totalExpense(this.dataSource.data);
         },
         (error) => console.log(error)
       );
@@ -107,8 +107,7 @@ export class ExpensesComponent implements OnInit, AfterViewInit {
       );
   }
   
-  updateExpense(): void {
-    //console.log(this.formEditExpense.value);
+  updateExpense(): void {    
     console.log(this.formatDataExpense());
     this.expenseService
       .updatexpense(
@@ -158,6 +157,13 @@ export class ExpensesComponent implements OnInit, AfterViewInit {
       (el) => el._id == this.formEditExpense.get('category')?.value
     );
     return category[0];
+  }
+  totalExpense(expense: any):void {
+    let total: number = 0;
+    expense.forEach((element: any) => {
+      total += element.value;
+    });
+    this.expenseService.currentTotalExpense$.emit(total);
   }
   
   ngOnDestroy(): void {

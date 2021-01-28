@@ -18,42 +18,24 @@
             </canvas>
           </div>
           <ul class="list-group list-group-flush">
-            <li class="list-group-item">
+            <li class="list-group-item" *ngFor="let item of expensesData.renderItems" >
               <div class="row">
                 <div class="col-8">
-                  <span>Salud</span>
+                  <span>{{item.tag}}</span>
                 </div>
                 <div class="col-4">
-                  <span class="float-right">$400</span>
+                  <span class="float-right">$ {{item.value}}</span>
                 </div>
               </div>
               <div class="row">
                 <div class="col-8">
-                  <span>Porcentage</span>
+                  <span>Percentage</span>
                 </div>
                 <div class="col-4">
-                  <span class="float-right">40%</span>
+                  <span class="float-right">{{item.value/expensesData.total | percent}}</span>
                 </div>
               </div>
-            </li>
-            <li class="list-group-item">
-              <div class="row">
-                <div class="col-8">
-                  <span>Salud</span>
-                </div>
-                <div class="col-4">
-                  <span class="float-right">$400</span>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-8">
-                  <span>Porcentage</span>
-                </div>
-                <div class="col-4">
-                  <span class="float-right">40%</span>
-                </div>
-              </div>
-            </li>
+            </li>            
           </ul>
         </div>
       </div>

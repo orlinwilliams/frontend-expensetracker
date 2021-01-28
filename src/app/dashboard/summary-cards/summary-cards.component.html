@@ -6,7 +6,7 @@
           <div class="row justify-content-between">
             <div class="col-9">
               <div class="row item-title">Income</div>
-              <div class="row item-value">$ {{incomeService.currentTotalIncome$ | async}}</div>
+              <div class="row item-value">$ {{valueIncome}}</div>
             </div>
             <div class="col-3">
               <fa-icon class="arrow-up-icon" [icon]="faArrowAltCircleUp"></fa-icon>
@@ -23,7 +23,7 @@
           <div class="row justify-content-between">
             <div class="col-9">
               <div class="row item-title">Expense</div>
-              <div class="row item-value">$40</div>
+              <div class="row item-value">$ {{valueExpense}}</div>
             </div>
             <div class="col-3">
               <fa-icon
@@ -43,7 +43,7 @@
           <div class="row justify-content-between">
             <div class="col-9">
               <div class="row item-title">Current balance</div>
-              <div class="row item-value">$40</div>
+              <div class="row item-value">$ {{valueIncome - valueExpense}}</div>
             </div>
             <div class="col-3">
               <fa-icon class="current-balance-icon" [icon]="faCommentDollar"></fa-icon>
