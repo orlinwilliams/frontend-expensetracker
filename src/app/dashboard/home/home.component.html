@@ -3,7 +3,7 @@
   <app-summary-cards></app-summary-cards>
   <div class="row">
     <div class="col-12 col-sm-12 col-md-10 col-lg-6 col-xl-6">
-      <app-income ></app-income>
+      <app-income></app-income>
     </div>
     <div class="col-12 col-sm-12 col-md-10 col-lg-6 col-xl-6">
       <app-expenses></app-expenses>
@@ -68,7 +68,12 @@
           (change)="validatorCategory($event)"
         >
           <option value="selectCategory">Select category</option>
-          <option *ngFor="let category of incomeCategories" [value]="category.title">{{category.title}}</option>
+          <option
+            *ngFor="let category of incomeCategories"
+            [value]="category._id"
+          >
+            {{ category.title }}
+          </option>
         </select>
       </div>
     </form>
@@ -95,7 +100,12 @@
           (change)="validatorCategory($event)"
         >
           <option value="selectCategory">Select category</option>
-          <option value="food">food</option>
+          <option
+            *ngFor="let category of expenseCategories"
+            [value]="category._id"
+          >
+            {{ category.title }}
+          </option>
         </select>
       </div>
     </form>

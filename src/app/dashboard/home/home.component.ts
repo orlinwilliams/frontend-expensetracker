@@ -3,8 +3,10 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { faPlusCircle } from '@fortawesome/free-solid-svg-icons';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { CurrentUserService } from 'src/app/services/authentication/current-user.service';
+import { ExpenseCategoriesService } from 'src/app/services/categories/expense-categories.service';
 import { IncomeCategoriesService } from 'src/app/services/categories/income-categories.service';
 import { CurrentDateService } from 'src/app/services/dashboard/current-date.service';
+import { ExpenseService } from 'src/app/services/dashboard/expense.service';
 import { IncomeService } from 'src/app/services/dashboard/income.service';
 
 @Component({
@@ -17,6 +19,7 @@ export class HomeComponent implements OnInit {
   validatedSelectCategory: boolean = true;
   optionModal: string = '';
   incomeCategories: Array<any> = [];
+  expenseCategories: Array<any> = [];
   formExpense = new FormGroup({
     value: new FormControl('', [Validators.required]),
     category: new FormControl('selectCategory', [Validators.required]),
@@ -29,13 +32,16 @@ export class HomeComponent implements OnInit {
   constructor(
     private modalService: NgbModal,
     private incomeCategoriesService: IncomeCategoriesService,
+    private expenseCategoriesService:ExpenseCategoriesService,
     private currentUserService: CurrentUserService,
     private incomeService: IncomeService,
+    private expenseService:ExpenseService,
     private currentDateService: CurrentDateService
   ) {}
   
   ngOnInit(): void {
     this.getIncomeCategories();
+    this.getExpenseCategories();
   }
   
   openModal(modal: any, event: any): void {
@@ -50,20 +56,31 @@ export class HomeComponent implements OnInit {
     else this.validatedSelectCategory = true;
   }
   saveExpense():void {
-    console.log(this.formExpense.value);
+    console.log(this.formatDataExpense());
+    this.expenseService
+      .createExpense(this.currentUserService.getUserId(), this.formatDataExpense())
+      .subscribe(
+        (res: any) => {
+          this.formExpense.reset();
+          this.eventRender();
+        },
+        (error) => console.log(error)
+      );
+
   }
 
   saveIncome():void {
     this.incomeService
-      .createIncome(this.currentUserService.getUserId(), this.getDataIncome())
+      .createIncome(this.currentUserService.getUserId(), this.formatDataIncome())
       .subscribe(
         (res: any) => {
           this.formIncome.reset();
-          this.eventRenderIncome();
+          this.eventRender();
         },
         (error) => console.log(error)
       );
   }
+
   getIncomeCategories():void {
     this.incomeCategoriesService
       .getCategories(this.currentUserService.getUserId())
@@ -74,13 +91,23 @@ export class HomeComponent implements OnInit {
         (error) => console.log(error)
       );
   }
-  eventRenderIncome():void {
+  getExpenseCategories():void {
+    this.expenseCategoriesService
+      .getCategories(this.currentUserService.getUserId())
+      .subscribe(
+        (res: any) => {
+          this.expenseCategories = res.data.expenseCategories;          
+        },
+        (error) => console.log(error)
+      );
+  }
+  eventRender():void {
     this.currentDateService.currentDate$.emit({
-      month: this.getDataIncome().date.month,
-      year: this.getDataIncome().date.year,
+      month: this.formatDataIncome().date.month,
+      year: this.formatDataIncome().date.year,
     });
   }
-  getDataIncome(): any {
+  formatDataIncome(): any {
     const data: any = {
       value: this.formIncome.get('value')?.value,
       category: this.formIncome.get('category')?.value,
@@ -88,6 +115,17 @@ export class HomeComponent implements OnInit {
     };
     return data;
   }
-  
+  formatDataExpense(): any {
+    const data: any = {
+      value: this.formExpense.get('value')?.value,
+      category: this.searchCategory(this.formExpense.get('category')?.value),
+      date: this.currentDateService.getDate(),
+    };
+    return data;
+  }
+  searchCategory(id:string):object{
+    const category:any = this.expenseCategories.filter(el => el._id === id )
+    return category[0];
+  }
   
 }

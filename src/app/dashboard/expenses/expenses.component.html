@@ -1,24 +1,130 @@
 <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
   <ng-container matColumnDef="date">
-    <th mat-header-cell *matHeaderCellDef mat-sort-header>Date</th>
-    <td mat-cell *matCellDef="let element">{{ element.date }}</td>
+    <th mat-header-cell *matHeaderCellDef mat-sort-header="date.day">Date</th>
+    <td mat-cell *matCellDef="let element">
+      {{ element.date.day }}/{{ element.date.month }}/{{ element.date.year }}
+    </td>
   </ng-container>
   <ng-container matColumnDef="category">
-    <th mat-header-cell *matHeaderCellDef mat-sort-header>Category</th>
-    <td mat-cell *matCellDef="let element">{{ element.category }}</td>
+    <th mat-header-cell *matHeaderCellDef mat-sort-header="category.title">
+      Category
+    </th>
+    <td mat-cell *matCellDef="let element">{{ element.category.title }}</td>
   </ng-container>
   <ng-container matColumnDef="value">
-    <th mat-header-cell *matHeaderCellDef mat-sort-header="value.title" >Value</th>
-    <td mat-cell *matCellDef="let element">{{ element.value.title }}</td>
+    <th mat-header-cell *matHeaderCellDef mat-sort-header>Value</th>
+    <td mat-cell *matCellDef="let element">$ {{ element.value }}</td>
   </ng-container>
   <ng-container matColumnDef="actions">
     <th mat-header-cell *matHeaderCellDef>Actions</th>
     <td mat-cell *matCellDef="let element">
-      <fa-icon class="action-icon" ngbTooltip="Editar" [icon]="faEdit"></fa-icon> 
-      <fa-icon class="action-icon" ngbTooltip="Delete" [icon]="faTrashAlt"></fa-icon> 
-    </td
+      <fa-icon
+        (click)="openModalEdit(modalEditAnIncome, element._idExpense)"
+        class="action-icon"
+        ngbTooltip="Editar"
+        [icon]="faEdit"
+      ></fa-icon>
+      <fa-icon
+        (click)="openModalDelete(modalConfirm, element._idExpense)"
+        class="action-icon"
+        ngbTooltip="Delete"
+        [icon]="faTrashAlt"
+      ></fa-icon></td
   ></ng-container>
 
   <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
   <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
 </table>
+
+<ng-template #modalConfirm let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Confirm</h4>
+    <button
+      type="button"
+      class="close"
+      aria-label="Close"
+      (click)="modal.dismiss('Cross click')"
+    >
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form>
+      <div class="form-group">
+        <h5>Are you sure you want to delete this item?</h5>
+        <h6>This process is not irreversible</h6>
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button
+      type="button"
+      class="btn btn-secondary btn-sm"
+      (click)="modal.close('Save click')"
+    >
+      Close
+    </button>
+    <button
+      type="button"
+      class="btn btn-danger btn-sm"
+      (click)="deleteExpense()"
+    >
+      Confirm
+    </button>
+  </div>
+</ng-template>
+<ng-template #modalEditAnIncome let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Edit</h4>
+    <button
+      type="button"
+      class="close"
+      aria-label="Close"
+      (click)="modal.dismiss('Cross click')"
+    >
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form [formGroup]="formEditExpense">
+      <div class="form-group">
+        <label for="newValue">Value</label>
+        <div class="input-group-prepend">
+          <span class="input-group-text">$</span>
+          <input
+            type="number"
+            class="form-control"
+            name="value"
+            id="newValue"
+            required
+            formControlName="value"
+          />
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="newCategoryExpense">Category</label>
+        <select
+          formControlName="category"
+          class="form-control"
+          id="newCategoryExpense"
+          name="category"
+        >
+          <option
+            *ngFor="let category of expenseCategories"
+            [value]="category._id"
+          >
+            {{ category.title }}
+          </option>
+        </select>
+      </div>
+    </form>
+    <button
+      type="button"
+      class="btn btn-primary float-right"
+      (click)="updateExpense()"
+      [disabled]="!formEditExpense.valid"
+    >
+      Edit
+    </button>
+  </div>
+</ng-template>
