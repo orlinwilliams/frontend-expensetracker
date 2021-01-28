@@ -8,11 +8,11 @@
           <div class="chart">
             <canvas
               baseChart
-              [data]="pieChartData"
-              [labels]="pieChartLabels"
+              [data]="pieChartDataExpense"
+              [labels]="pieChartLabelsExpense"
               [chartType]="pieChartType"
               [options]="pieChartOptions"
-              [colors]="pieChartColors"
+              [colors]="pieChartColorsExpense"
               [legend]="pieChartLegend"
             >
             </canvas>
@@ -44,7 +44,7 @@
       <div class="card">
         <div class="card-body">
           <h5 class="card-title text-center">Income</h5>
-          <div class="chart">
+          <!-- <div class="chart">
             <canvas
               baseChart
               [data]="pieChartData"
@@ -55,7 +55,7 @@
               [legend]="pieChartLegend"
             >
             </canvas>
-          </div>
+          </div> -->
           <ul class="list-group list-group-flush">
             <li class="list-group-item">
               <div class="row">

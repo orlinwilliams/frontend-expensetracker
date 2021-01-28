@@ -13,8 +13,7 @@ import { ExpenseService } from 'src/app/services/dashboard/expense.service';
 })
 export class HomeReportsComponent implements OnInit {
   expenseSubscription: Subscription = new Subscription();
-  titleCategories: Array<any> = [];
-  expensesData: any = {};
+  expensesData:any = {}
   pieChartOptions: ChartOptions = {
     responsive: true,
     legend: {
@@ -29,23 +28,12 @@ export class HomeReportsComponent implements OnInit {
       },
     },
   };
-  pieChartLabels: Label[] = [
-    ['Download', 'Sales'],
-    ['In', 'Store', 'Sales'],
-    'Mail Sales',
-  ];
-  pieChartData: number[] = [300, 500, 100];
+  pieChartLabelsExpense: Label[] = [];
+  pieChartDataExpense: number[] = [];
+  pieChartColorsExpense:any = [];
   pieChartType: ChartType = 'pie';
   pieChartLegend = true;
-  pieChartColors = [
-    {
-      backgroundColor: [
-        'rgba(255,0,0,0.3)',
-        'rgba(0,255,0,0.3)',
-        'rgba(0,0,255,0.3)',
-      ],
-    },
-  ];
+  
 
   constructor(
     private currentDateService: CurrentDateService,
@@ -63,15 +51,25 @@ export class HomeReportsComponent implements OnInit {
         this.expenseService
           .getExpenses(this.currentUserService.getUserId(), res.month, res.year)
           .subscribe(
-            (res: any) => {
-              console.log(res.data);
-              console.log(this.dataToChart(res.data));
-              this.expensesData = this.dataToChart(res.data);
+            (res: any) => {                            
+              this.expensesData = this.dataToChart(res.data)
+              this.createChartExpense(this.expensesData.tags, this.expensesData.values);              
             },
             (error) => console.log(error)
           );
       }
     );
+  }
+  createChartExpense(labels:Label[],values:number[]){
+    this.pieChartLabelsExpense = labels
+    this.pieChartDataExpense = values
+    this.pieChartColorsExpense = [{
+      backgroundColor: [
+        'rgba(255, 116, 0   ,0.5)',
+        'rgba(220, 0, 255    ,0.5)',
+        'rgba(255, 0, 66  ,0.5)',
+      ],
+    },]
   }
 
   dataToChart(data: any): object {
