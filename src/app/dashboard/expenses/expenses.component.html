@@ -1,3 +1,17 @@
+<h5 class="card-title">Expenses</h5>
+ <ng-container *ngIf="!staticAlertClosed">  
+  <ngb-alert
+    *ngFor="let item of categoriesExceeded"
+    #staticAlert
+    type="info"    
+    (closed)="staticAlertClosed = true"
+  >
+    <span>
+      Hello, in this category: <strong>{{item.title}}</strong> you exceeded your
+      limit.</span
+    ></ngb-alert
+  >
+</ng-container>
 <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
   <ng-container matColumnDef="date">
     <th mat-header-cell *matHeaderCellDef mat-sort-header="date.day">Date</th>

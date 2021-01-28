@@ -3,7 +3,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { faTrashAlt, faEdit } from '@fortawesome/free-regular-svg-icons';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgbAlert, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Subscription } from 'rxjs';
 import { CurrentUserService } from 'src/app/services/authentication/current-user.service';
 import { ExpenseCategoriesService } from 'src/app/services/categories/expense-categories.service';
@@ -15,18 +15,20 @@ import { ExpenseService } from 'src/app/services/dashboard/expense.service';
   styleUrls: ['./expenses.component.css'],
 })
 export class ExpensesComponent implements OnInit, AfterViewInit {
+  @ViewChild('staticAlert', { static: false }) staticAlert?: NgbAlert;
   faEdit = faEdit;
   faTrashAlt = faTrashAlt;
   expenseSubscription: Subscription = new Subscription();
-  displayedColumns: string[] = ['date', 'category', 'value', 'actions']
+  displayedColumns: string[] = ['date', 'category', 'value', 'actions'];
   currtenCategory: any = {};
   expenseCategories: Array<any> = [];
-  
+  categoriesExceeded: Array<any> = [];
+  staticAlertClosed: boolean = true;
   idCurrentExpense: string = '';
   dataSource = new MatTableDataSource();
   formEditExpense = new FormGroup({
-    value: new FormControl('',[Validators.required,Validators.minLength(1)]),
-    category: new FormControl('',[Validators.required]),
+    value: new FormControl('', [Validators.required, Validators.minLength(1)]),
+    category: new FormControl('', [Validators.required]),
   });
   @ViewChild(MatSort) sort: MatSort = new MatSort();
 
@@ -60,7 +62,16 @@ export class ExpensesComponent implements OnInit, AfterViewInit {
           .subscribe(
             (res: any) => {
               this.dataSource.data = res.data;
+              //console.log(this.dataSource.data);
               this.totalExpense(this.dataSource.data);
+              //console.log(this.dataTagsValues(res.data));
+              const tagsValues: any = this.dataTagsValues(res.data);
+              this.categoriesExceeded = this.validateLimit(
+                this.expenseCategories,
+                tagsValues.renderItems
+              );
+              this.showNotifications();
+              console.log(this.categoriesExceeded);
             },
             (error) => console.log(error)
           );
@@ -82,7 +93,7 @@ export class ExpensesComponent implements OnInit, AfterViewInit {
     this.expenseService
       .getExpense(this.currentUserService.getUserId(), idExpense)
       .subscribe(
-        (res: any) => {          
+        (res: any) => {
           this.formEditExpense.setValue({
             value: res.data.value,
             category: res.data.category._id,
@@ -102,12 +113,13 @@ export class ExpensesComponent implements OnInit, AfterViewInit {
       .subscribe(
         (res: any) => {
           this.expenseCategories = res.data.expenseCategories;
+          console.log(this.expenseCategories);
         },
         (error) => console.log(error)
       );
   }
-  
-  updateExpense(): void {    
+
+  updateExpense(): void {
     console.log(this.formatDataExpense());
     this.expenseService
       .updatexpense(
@@ -151,21 +163,79 @@ export class ExpensesComponent implements OnInit, AfterViewInit {
         (error) => console.log(error)
       );
   }
-  
-  searchCategory() {
+
+  searchCategory(): Array<any> {
     const category: any = this.expenseCategories.filter(
       (el) => el._id == this.formEditExpense.get('category')?.value
     );
     return category[0];
   }
-  totalExpense(expense: any):void {
+  totalExpense(expense: any): void {
     let total: number = 0;
     expense.forEach((element: any) => {
       total += element.value;
     });
     this.expenseService.currentTotalExpense$.emit(total);
   }
-  
+  dataTagsValues(data: any): object {
+    const tags = this.getTags(data);
+    const values = this.getValues(data, tags);
+    const renderItems = this.formatTagsValues(tags, values);
+    return {
+      tags,
+      values,
+      renderItems,
+    };
+  }
+  getTags(array: any): Array<string> {
+    let tags: Array<string> = [];
+    array.forEach((item: any) => {
+      tags.push(item.category.title);
+    });
+    const tagsFinal = tags.filter((item: string, index: number) => {
+      return tags.indexOf(item) === index;
+    });
+    return tagsFinal;
+  }
+  getValues(data: any, tags: any): Array<number> {
+    let values: Array<number> = [];
+    tags.forEach((item: string) => {
+      let valueCategory = 0;
+      data.forEach((el: any) => {
+        if (el.category.title == item) {
+          valueCategory += el.value;
+        }
+      });
+      values.push(valueCategory);
+    });
+    return values;
+  }
+  formatTagsValues(tags: Array<string>, values: Array<number>): Array<any> {
+    let valuesFinal: any = [];
+    for (let i = 0; i < tags.length; i++) {
+      valuesFinal.push({ tag: tags[i], value: values[i] });
+    }
+    return valuesFinal;
+  }
+  validateLimit(categories: any, myExpenses: any): Array<any> {
+    let categoriesExceeded: any = [];
+
+    myExpenses.forEach((item: any) => {
+      categories.forEach((el: any) => {
+        if (item.tag == el.title) {
+          if (item.value > el.limit) {
+            categoriesExceeded.push(el);
+          }
+        }
+      });
+    });
+    return categoriesExceeded;
+  }
+  showNotifications() {
+    this.staticAlertClosed = !this.staticAlertClosed;
+    setTimeout(() => this.staticAlert?.close(), 10000);
+  }
+
   ngOnDestroy(): void {
     this.expenseSubscription.unsubscribe();
   }

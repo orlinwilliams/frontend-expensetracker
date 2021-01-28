@@ -1,6 +1,6 @@
 table {
   width: 100%;
-  margin-top: 40px;
+  margin-top: 15px;
   
 }
 .mat-table {
@@ -9,4 +9,9 @@ table {
 }
 th.mat-sort-header-sorted {
   color: black;
+}
+.greet{
+  font-size: 15px;
+  font-weight: 500;
+  margin-bottom: 6px;
 }
