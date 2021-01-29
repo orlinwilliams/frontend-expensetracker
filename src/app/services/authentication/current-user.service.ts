@@ -22,6 +22,9 @@ export class CurrentUserService {
   }
   existToken():boolean{
     if (localStorage.getItem('data') == null) return false;
+    const tokenString:any = localStorage.getItem('data');
+    const token = JSON.parse(tokenString);
+    if(!token.token) return false;    
     return true;
   }
   getUserToken():string {
