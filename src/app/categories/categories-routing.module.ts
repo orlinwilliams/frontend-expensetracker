@@ -12,9 +12,7 @@ const routes: Routes = [
     path: '',
     component: CategoriesComponent,
     children: [
-      { path: '', component: HomeCategoryComponent },
-      // { path: 'expense', component: ExpenseCategoryComponent },
-      // { path: 'income', component: IncomeCategoryComponent },
+      { path: '', component: HomeCategoryComponent },      
     ],
   },
 ];

@@ -1,4 +1,4 @@
-import { Component, OnInit,} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { faPlusCircle } from '@fortawesome/free-solid-svg-icons';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
@@ -32,33 +32,36 @@ export class HomeComponent implements OnInit {
   constructor(
     private modalService: NgbModal,
     private incomeCategoriesService: IncomeCategoriesService,
-    private expenseCategoriesService:ExpenseCategoriesService,
+    private expenseCategoriesService: ExpenseCategoriesService,
     private currentUserService: CurrentUserService,
     private incomeService: IncomeService,
-    private expenseService:ExpenseService,
+    private expenseService: ExpenseService,
     private currentDateService: CurrentDateService
   ) {}
-  
+
   ngOnInit(): void {
     this.getIncomeCategories();
     this.getExpenseCategories();
   }
-  
+
   openModal(modal: any, event: any): void {
     this.modalService.open(modal, { centered: true });
     this.validatedSelectCategory = true;
     if (event.target.outerText === 'Income') this.optionModal = 'Income';
     else if (event.target.outerText === 'Expense') this.optionModal = 'Expense';
   }
-  validatorCategory(event: any):void {
+  validatorCategory(event: any): void {
     if (event.target.value != 'selectCategory')
       this.validatedSelectCategory = false;
     else this.validatedSelectCategory = true;
   }
-  saveExpense():void {
+  saveExpense(): void {
     console.log(this.formatDataExpense());
     this.expenseService
-      .createExpense(this.currentUserService.getUserId(), this.formatDataExpense())
+      .createExpense(
+        this.currentUserService.getUserId(),
+        this.formatDataExpense()
+      )
       .subscribe(
         (res: any) => {
           this.formExpense.reset();
@@ -66,12 +69,14 @@ export class HomeComponent implements OnInit {
         },
         (error) => console.log(error)
       );
-
   }
 
-  saveIncome():void {
+  saveIncome(): void {
     this.incomeService
-      .createIncome(this.currentUserService.getUserId(), this.formatDataIncome())
+      .createIncome(
+        this.currentUserService.getUserId(),
+        this.formatDataIncome()
+      )
       .subscribe(
         (res: any) => {
           this.formIncome.reset();
@@ -81,7 +86,7 @@ export class HomeComponent implements OnInit {
       );
   }
 
-  getIncomeCategories():void {
+  getIncomeCategories(): void {
     this.incomeCategoriesService
       .getCategories(this.currentUserService.getUserId())
       .subscribe(
@@ -91,17 +96,17 @@ export class HomeComponent implements OnInit {
         (error) => console.log(error)
       );
   }
-  getExpenseCategories():void {
+  getExpenseCategories(): void {
     this.expenseCategoriesService
       .getCategories(this.currentUserService.getUserId())
       .subscribe(
         (res: any) => {
-          this.expenseCategories = res.data.expenseCategories;          
+          this.expenseCategories = res.data.expenseCategories;
         },
         (error) => console.log(error)
       );
   }
-  eventRender():void {
+  eventRender(): void {
     this.currentDateService.currentDate$.emit({
       month: this.formatDataIncome().date.month,
       year: this.formatDataIncome().date.year,
@@ -123,9 +128,8 @@ export class HomeComponent implements OnInit {
     };
     return data;
   }
-  searchCategory(id:string):object{
-    const category:any = this.expenseCategories.filter(el => el._id === id )
+  searchCategory(id: string): object {
+    const category: any = this.expenseCategories.filter((el) => el._id === id);
     return category[0];
   }
-  
 }

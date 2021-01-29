@@ -25,6 +25,7 @@ export class LoginComponent implements OnInit {
       Validators.minLength(this.minLengthPassword),
     ]),
   });
+
   constructor(
     private loginService: LoginService,
     private currentUserService: CurrentUserService,
@@ -44,6 +45,7 @@ export class LoginComponent implements OnInit {
       }
     );
   }
+  
   showError(){
     this.errorPasswordOrEmail = true;
     setTimeout(()=>this.errorPasswordOrEmail = false, 3000);

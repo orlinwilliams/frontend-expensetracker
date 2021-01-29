@@ -70,7 +70,7 @@
           <option value="selectCategory">Select category</option>
           <option
             *ngFor="let category of incomeCategories"
-            [value]="category._id"
+            [value]="category.title"
           >
             {{ category.title }}
           </option>

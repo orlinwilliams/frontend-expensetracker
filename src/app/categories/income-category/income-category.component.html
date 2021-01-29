@@ -17,7 +17,7 @@
           </thead>
           <tbody>
             <tr *ngFor="let category of incomeCategories">
-              <td >{{category.title}}</td>
+              <td>{{ category.title }}</td>
               <td>
                 <fa-icon
                   (click)="getCategory(category._id)"
@@ -26,7 +26,7 @@
                   [icon]="faEdit"
                 ></fa-icon>
                 <fa-icon
-                (click)="openModalConfirm(modalConfirm, category._id)"
+                  (click)="openModalConfirm(modalConfirm, category._id)"
                   class="action-icon"
                   ngbTooltip="Delete"
                   [icon]="faTrashAlt"
@@ -48,7 +48,7 @@
             <input
               type="text"
               class="form-control"
-              placeholder="food"
+              placeholder="salary"
               formControlName="title"
             />
           </div>
@@ -61,10 +61,18 @@
             >
               Save
             </button>
-            <button class="btn btn-primary btn-sm" *ngIf="showButtonEdit" (click)="updateCategory()" >
+            <button
+              class="btn btn-primary btn-sm"
+              *ngIf="showButtonEdit"
+              (click)="updateCategory()"
+            >
               Edit
             </button>
-            <button class="btn btn-secondary btn-sm" *ngIf="showButtonEdit" (click)="cancelEdit()">
+            <button
+              class="btn btn-secondary btn-sm"
+              *ngIf="showButtonEdit"
+              (click)="cancelEdit()"
+            >
               Cancel
             </button>
           </div>
@@ -76,7 +84,12 @@
 <ng-template #modalConfirm let-modal>
   <div class="modal-header">
     <h4 class="modal-title" id="modal-basic-title">Confirm</h4>
-    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+    <button
+      type="button"
+      class="close"
+      aria-label="Close"
+      (click)="modal.dismiss('Cross click')"
+    >
       <span aria-hidden="true">&times;</span>
     </button>
   </div>
@@ -89,7 +102,19 @@
     </form>
   </div>
   <div class="modal-footer">
-    <button type="button" class="btn btn-secondary btn-sm" (click)="modal.close('Save click')">Close</button>
-    <button type="button" class="btn btn-danger btn-sm" (click)="deleteCategory()">Confirm</button>
+    <button
+      type="button"
+      class="btn btn-secondary btn-sm"
+      (click)="modal.close('Save click')"
+    >
+      Close
+    </button>
+    <button
+      type="button"
+      class="btn btn-danger btn-sm"
+      (click)="deleteCategory()"
+    >
+      Confirm
+    </button>
   </div>
 </ng-template>

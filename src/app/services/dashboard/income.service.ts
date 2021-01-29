@@ -11,8 +11,8 @@ export class IncomeService {
 
   constructor(private httpClient: HttpClient) {}
 
-  createIncome(id: string, income: any): Observable<any> {
-    return this.httpClient.post(this.URL_API + id, income);
+  createIncome(idUser: string, income: any): Observable<any> {
+    return this.httpClient.post(this.URL_API + idUser, income);
   }
   getIncome(idUser: string, month: string, year: string): Observable<any> {
     return this.httpClient.get(

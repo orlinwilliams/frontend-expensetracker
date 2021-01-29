@@ -25,6 +25,7 @@ export class RegisterComponent implements OnInit {
       Validators.minLength(this.minLengthPassword),
     ]),
   });
+
   constructor(
     private registerService: RegisterService,
     private toastService: ToastService
@@ -48,6 +49,7 @@ export class RegisterComponent implements OnInit {
       }
     );
   }
+  
   errorPassword() {
     if (
       this.formRegister.get('password')?.value.length < this.minLengthPassword
