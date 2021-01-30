@@ -19,7 +19,7 @@
           <tbody>
             <tr *ngFor="let category of expenseCategories">
               <td>{{ category.title }}</td>
-              <td>{{ category.limit }}</td>
+              <td> $ {{ category.limit }}</td>
               <td>
                 <fa-icon
                   (click)="getCategory(category._id)"
