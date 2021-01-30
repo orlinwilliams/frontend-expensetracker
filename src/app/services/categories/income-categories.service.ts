@@ -6,8 +6,8 @@ import { Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class IncomeCategoriesService {
-  //URL_API: string = 'http://localhost:3000/categories/income/';
-  URL_API: string = '/categories/income/';
+  URL_API: string = 'http://localhost:3000/categories/income/';
+  //URL_API: string = '/categories/income/';
   constructor(private httpClient: HttpClient) {}
   createCategory(id: string, category: any): Observable<any> {
     return this.httpClient.post(this.URL_API + id, category);
