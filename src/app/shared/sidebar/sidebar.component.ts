@@ -20,6 +20,7 @@ export class SidebarComponent implements OnInit {
   detectWindowWidth():void{
     if (window.innerWidth <= 900) {
       this.modeNum = 0;
+      this.toggleSidebarService.openedSidebar = false
     }
   }
   
@@ -29,8 +30,10 @@ export class SidebarComponent implements OnInit {
     //console.log('Width: ' + event.target.innerWidth);
     if (event.target.innerWidth < 900) {
       this.modeNum = 0;
+      this.toggleSidebarService.openedSidebar = false;
     } else {
       this.modeNum = 1;
+      this.toggleSidebarService.openedSidebar = true;
     }
   }
   

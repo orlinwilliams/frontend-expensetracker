@@ -1,28 +1,43 @@
 <ng-sidebar-container>
-  <ng-sidebar [(opened)]="toggleSidebarService.openedSidebar" [mode]="modes[modeNum]">
+  <ng-sidebar
+    [(opened)]="toggleSidebarService.openedSidebar"
+    [mode]="modes[modeNum]"
+  >
     <div class="container menu-sidebar">
-      <div class="row option-sidebar" [routerLink]="['/dashboard']" [routerLinkActive]="['active-link']">
+      <div
+        class="row option-sidebar"
+        [routerLink]="['/dashboard']"
+        [routerLinkActive]="['active-link']"
+      >
         <div class="col-9">
           <span>Dashboard</span>
         </div>
         <div class="col-3">
-          <fa-icon [icon]="faChevronRight" ></fa-icon>
+          <fa-icon [icon]="faChevronRight"></fa-icon>
         </div>
       </div>
-      <div class="row option-sidebar" [routerLink]="['/categories']" [routerLinkActive]="['active-link']">
+      <div
+        class="row option-sidebar"
+        [routerLink]="['/categories']"
+        [routerLinkActive]="['active-link']"
+      >
         <div class="col-9">
           <span>Categories</span>
         </div>
         <div class="col-3">
-          <fa-icon [icon]="faChevronRight" ></fa-icon>
+          <fa-icon [icon]="faChevronRight"></fa-icon>
         </div>
       </div>
-      <div class="row option-sidebar" [routerLink]="['/reports']" [routerLinkActive]="['active-link']">
+      <div
+        class="row option-sidebar"
+        [routerLink]="['/reports']"
+        [routerLinkActive]="['active-link']"
+      >
         <div class="col-9">
           <span>Reports</span>
         </div>
         <div class="col-3">
-          <fa-icon [icon]="faChevronRight" ></fa-icon>
+          <fa-icon [icon]="faChevronRight"></fa-icon>
         </div>
       </div>
     </div>

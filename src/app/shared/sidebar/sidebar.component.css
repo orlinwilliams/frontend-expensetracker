@@ -17,6 +17,9 @@ ng-sidebar-container {
 .option-sidebar:hover {
   background: rgba(223, 217, 217 ,0.9);
 }
+.option-sidebar span{
+  font-size: 18px;
+}
 .active-link{
   background: rgba(223, 217, 217 ,0.9);
 }
