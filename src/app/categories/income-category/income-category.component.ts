@@ -59,8 +59,7 @@ export class IncomeCategoryComponent implements OnInit {
       .subscribe(
         (res: any) => {
           this.showButtonEdit = true;
-          this.currentCategory = res.data;
-          console.log(this.currentCategory);
+          this.currentCategory = res.data;          
           this.formCategory.patchValue({ title: this.currentCategory.title });
         },
         (error) => console.log(error)

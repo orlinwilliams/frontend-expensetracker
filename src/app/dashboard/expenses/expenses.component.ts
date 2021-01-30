@@ -40,8 +40,8 @@ export class ExpensesComponent implements OnInit, AfterViewInit {
     private expenseCategoriesService: ExpenseCategoriesService
   ) {}
   ngOnInit(): void {
+    //this.getExpenseCategories();
     this.getExpenses();
-    this.getExpenseCategories();
   }
   //----------- init sort datable--------
   ngAfterViewInit(): any {
@@ -49,11 +49,13 @@ export class ExpensesComponent implements OnInit, AfterViewInit {
     this.dataSource.sortingDataAccessor = (data, sortHeaderId: string) => {
       return this.getPropertyByPath(data, sortHeaderId);
     };
+    this.getExpenseCategories();
   }
   getPropertyByPath(obj: any, pathString: string): any {
     return pathString.split('.').reduce((o: any, i: any) => o[i], obj);
   }
   //----------- end sort datable--------
+
   getExpenses(): void {
     this.expenseSubscription = this.currentDateService.currentDate$.subscribe(
       (res: any) => {
@@ -62,16 +64,9 @@ export class ExpensesComponent implements OnInit, AfterViewInit {
           .subscribe(
             (res: any) => {
               this.dataSource.data = res.data;
-              //console.log(this.dataSource.data);
               this.totalExpense(this.dataSource.data);
-              //console.log(this.dataTagsValues(res.data));
               const tagsValues: any = this.dataTagsValues(res.data);
-              this.categoriesExceeded = this.validateLimit(
-                this.expenseCategories,
-                tagsValues.renderItems
-              );
-              this.showNotifications();
-              console.log(this.categoriesExceeded);
+              this.validateLimit(tagsValues.renderItems);
             },
             (error) => console.log(error)
           );
@@ -85,6 +80,8 @@ export class ExpensesComponent implements OnInit, AfterViewInit {
         (res: any) => {
           this.dataSource.data = res.data;
           this.totalExpense(this.dataSource.data);
+          const tagsValues: any = this.dataTagsValues(res.data);
+          this.validateLimit(tagsValues.renderItems);
         },
         (error) => console.log(error)
       );
@@ -113,14 +110,12 @@ export class ExpensesComponent implements OnInit, AfterViewInit {
       .subscribe(
         (res: any) => {
           this.expenseCategories = res.data.expenseCategories;
-          console.log(this.expenseCategories);
         },
         (error) => console.log(error)
       );
   }
 
   updateExpense(): void {
-    console.log(this.formatDataExpense());
     this.expenseService
       .updatexpense(
         this.currentUserService.getUserId(),
@@ -129,7 +124,6 @@ export class ExpensesComponent implements OnInit, AfterViewInit {
       )
       .subscribe(
         (res: any) => {
-          console.log(res);
           if (res.data.nModified) {
             this.getLocalExpense(this.currentDateService.getDate());
             this.modalService.dismissAll();
@@ -217,22 +211,31 @@ export class ExpensesComponent implements OnInit, AfterViewInit {
     }
     return valuesFinal;
   }
-  validateLimit(categories: any, myExpenses: any): Array<any> {
+  validateLimit(myExpenses: any) {
     let categoriesExceeded: any = [];
 
-    myExpenses.forEach((item: any) => {
-      categories.forEach((el: any) => {
-        if (item.tag == el.title) {
-          if (item.value > el.limit) {
-            categoriesExceeded.push(el);
-          }
-        }
-      });
-    });
-    return categoriesExceeded;
+    this.expenseCategoriesService
+      .getCategories(this.currentUserService.getUserId())
+      .subscribe(
+        (res: any) => {
+          this.expenseCategories = res.data.expenseCategories;
+          myExpenses.forEach((item: any) => {
+            this.expenseCategories.forEach((el: any) => {
+              if (item.tag == el.title) {
+                if (item.value > el.limit) {
+                  categoriesExceeded.push(el);
+                }
+              }
+            });
+          });
+          this.categoriesExceeded = categoriesExceeded;
+          this.showNotifications();
+        },
+        (error) => console.log(error)
+      );
   }
   showNotifications() {
-    this.staticAlertClosed = !this.staticAlertClosed;
+    this.staticAlertClosed = false;
     setTimeout(() => this.staticAlert?.close(), 10000);
   }
 

@@ -55,8 +55,7 @@ export class HomeComponent implements OnInit {
       this.validatedSelectCategory = false;
     else this.validatedSelectCategory = true;
   }
-  saveExpense(): void {
-    console.log(this.formatDataExpense());
+  saveExpense(): void {    
     this.expenseService
       .createExpense(
         this.currentUserService.getUserId(),

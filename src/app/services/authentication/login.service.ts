@@ -7,8 +7,8 @@ import {User}  from '../../models/authentication/user';
   providedIn: 'root'
 })
 export class LoginService {
-  URL_API: string = 'http://localhost:3000/login';
-  
+  //URL_API: string = 'http://localhost:3000/login';
+  URL_API: string = '/login';
   constructor(private httpClient:HttpClient) { }
   
   login(user:User):Observable<any>{

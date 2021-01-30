@@ -21,6 +21,7 @@
           required
           id="password-login"
           formControlName="password"
+          (keydown.enter)="login()"
         />
       </div>
       <div *ngIf="errorPasswordOrEmail">
@@ -34,6 +35,7 @@
         >
         <button
           (click)="login()"
+          (keydown.enter)="login()"
           class="btn btn-primary btn-sm float-right"
           [disabled]="!formLogin.valid"
         >

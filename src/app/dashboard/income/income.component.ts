@@ -63,8 +63,7 @@ export class IncomeComponent implements OnInit, AfterViewInit, OnDestroy {
         this.incomeService
           .getIncome(this.currentUserService.getUserId(), res.month, res.year)
           .subscribe(
-            (res: any) => {
-              console.log(res.data);
+            (res: any) => {              
               this.dataSource.data = res.data;
               this.totalIncome(this.dataSource.data);
             },

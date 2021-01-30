@@ -6,7 +6,8 @@ import { Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class ExpenseService {
-  URL_API: string = 'http://localhost:3000/dashboard/expense/';
+  //URL_API: string = 'http://localhost:3000/dashboard/expense/';
+  URL_API: string = '/dashboard/expense/';
   currentTotalExpense$ = new EventEmitter<number>();
   constructor(private httpClient: HttpClient) {}
 

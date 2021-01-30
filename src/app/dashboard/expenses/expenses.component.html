@@ -1,14 +1,14 @@
 <h5 class="card-title">Expenses</h5>
- <ng-container *ngIf="!staticAlertClosed">  
+<ng-container *ngIf="!staticAlertClosed">
   <ngb-alert
     *ngFor="let item of categoriesExceeded"
     #staticAlert
-    type="info"    
+    type="info"
     (closed)="staticAlertClosed = true"
   >
     <span>
-      Hello, in this category: <strong>{{item.title}}</strong> you exceeded your
-      limit.</span
+      Hello, in this category: <strong>{{ item.title }}</strong> you exceeded
+      your limit.</span
     ></ngb-alert
   >
 </ng-container>

@@ -36,20 +36,21 @@ export class RegisterComponent implements OnInit {
   register() {
     this.registerService.register(this.formRegister.value).subscribe(
       (res: any) => {
-        if(res.data){
+        if (res.data) {
           this.toastService.dataToast = {
             showToast: true,
-            classToast:'success',
-            message:'successfully registered user'
-          }
+            classToast: 'success',
+            message: 'successfully registered user',
+          };
         }
       },
       (error) => {
+        console.log(error);
         this.showError(error.error.message);
       }
     );
   }
-  
+
   errorPassword() {
     if (
       this.formRegister.get('password')?.value.length < this.minLengthPassword
