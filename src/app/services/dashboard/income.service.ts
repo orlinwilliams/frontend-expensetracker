@@ -6,8 +6,8 @@ import { Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class IncomeService {
-  //URL_API: string = 'http://localhost:3000/dashboard/income/';
-  URL_API: string = '/dashboard/income/';
+  URL_API: string = 'http://localhost:3000/dashboard/income/';
+  //URL_API: string = '/dashboard/income/';
   currentTotalIncome$ = new EventEmitter<number>();
 
   constructor(private httpClient: HttpClient) {}
