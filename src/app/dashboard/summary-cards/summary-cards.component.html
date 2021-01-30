@@ -5,11 +5,14 @@
         <div class="container">
           <div class="row justify-content-between">
             <div class="col-9">
-              <div class="row item-title">Income</div>
-              <div class="row item-value">$ {{valueIncome}}</div>
+              <div class="row item-title">Expense</div>
+              <div class="row item-value">$ {{valueExpense}}</div>
             </div>
             <div class="col-3">
-              <fa-icon class="arrow-up-icon" [icon]="faArrowAltCircleUp"></fa-icon>
+              <fa-icon
+                class="arrow-down-icon"
+                [icon]="faArrowAltCircleDown"
+              ></fa-icon>
             </div>
           </div>
         </div>
@@ -22,14 +25,11 @@
         <div class="container">
           <div class="row justify-content-between">
             <div class="col-9">
-              <div class="row item-title">Expense</div>
-              <div class="row item-value">$ {{valueExpense}}</div>
+              <div class="row item-title">Income</div>
+              <div class="row item-value">$ {{valueIncome}}</div>
             </div>
             <div class="col-3">
-              <fa-icon
-                class="arrow-down-icon"
-                [icon]="faArrowAltCircleDown"
-              ></fa-icon>
+              <fa-icon class="arrow-up-icon" [icon]="faArrowAltCircleUp"></fa-icon>
             </div>
           </div>
         </div>
